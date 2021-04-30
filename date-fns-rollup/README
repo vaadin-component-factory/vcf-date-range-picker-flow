@@ -1,0 +1,12 @@
+This subproject is for creating rollup of DateFns library to be ussed in enhanced-date-picker comonent for Vaadin 13.
+It creates one file with needed functionality of library DateFns and packs it in the way that is importable by Vaadin 13 and also compatible with IE 11.
+
+Modules that will be exported to file are definned in `index.js`
+
+## Usage
+First you need to install dependencies by running `npm install`
+then run command: `npm run build`
+It will create rollup with limited functionality of DateFns library and also minified version of rollup.
+Result files can be found in `dist` folder.
+
+once you made new rollup you should copy it to `enhanced-date-picker/enhanced-date-picker/src/main/resources/META-INF/resources/frontend/`
