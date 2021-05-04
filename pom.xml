@@ -37,7 +37,6 @@
 
     <modules>
         <module>vcf-date-range-picker</module>
-        <module>vcf-date-range-picker-testbench</module>
         <module>vcf-date-range-picker-demo</module>
     </modules>
 </project>
