@@ -1,6 +1,6 @@
 /* helper class for parsing regex from formatted date string */
 
-class EnhancedDatePickerPart {
+class EnhancedDateRangePickerPart {
     constructor(initial) {
         this.initial = initial;
         this.index = 0;
@@ -17,7 +17,7 @@ class EnhancedDatePickerPart {
         return 0;
     }
 }
-window.Vaadin.Flow.enhancedDatepickerConnector = {
+window.Vaadin.Flow.enhancedDateRangePickerConnector = {
     initLazy: function (datepicker) {
         // Check whether the connector was already initialized for the datepicker
         if (datepicker.$connector) {
@@ -27,9 +27,9 @@ window.Vaadin.Flow.enhancedDatepickerConnector = {
         datepicker.$connector = {};
 
         /* init helper parts for reverse-engineering date-regex */
-        datepicker.$connector.dayPart = new EnhancedDatePickerPart('22');
-        datepicker.$connector.monthPart = new EnhancedDatePickerPart('11');
-        datepicker.$connector.yearPart = new EnhancedDatePickerPart('1987');
+        datepicker.$connector.dayPart = new EnhancedDateRangePickerPart('22');
+        datepicker.$connector.monthPart = new EnhancedDateRangePickerPart('11');
+        datepicker.$connector.yearPart = new EnhancedDateRangePickerPart('1987');
         datepicker.$connector.parts = [
             datepicker.$connector.dayPart,
             datepicker.$connector.monthPart,
@@ -145,7 +145,7 @@ window.Vaadin.Flow.enhancedDatepickerConnector = {
                 part.index = testString.indexOf(part.initial);
             });
             /* sort items to match correct places in regex groups */
-            datepicker.$connector.parts.sort(EnhancedDatePickerPart.compare);
+            datepicker.$connector.parts.sort(EnhancedDateRangePickerPart.compare);
             /* create regex
              * regex will be the date, so that:
              * - day-part is '(\d{1,2})' (1 or 2 digits),

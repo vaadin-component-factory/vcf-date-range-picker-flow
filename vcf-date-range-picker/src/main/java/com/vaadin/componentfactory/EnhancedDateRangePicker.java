@@ -51,7 +51,7 @@ import elemental.json.JsonObject;
  *
  */
 @JavaScript("frontend://date-fns-limited.min.js")
-@JavaScript("frontend://enhancedDatepickerConnector.js")
+@JavaScript("frontend://enhancedDateRangePickerConnector.js")
 @Tag("vcf-date-range-picker")
 @JsModule("./vcf-date-range-picker.js")
 public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedDateRangePicker, DateRange>
@@ -442,7 +442,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
 
     private void initConnector() {
         runBeforeClientResponse(ui -> ui.getPage().executeJavaScript(
-                "window.Vaadin.Flow.enhancedDatepickerConnector.initLazy($0)",
+                "window.Vaadin.Flow.enhancedDateRangePickerConnector.initLazy($0)",
                 getElement()));
     }
 

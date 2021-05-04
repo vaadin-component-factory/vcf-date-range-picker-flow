@@ -28,17 +28,17 @@ import com.vaadin.flow.osgi.support.OsgiVaadinStaticResource;
  *
  */
 @Component(immediate = true, service = OsgiVaadinStaticResource.class)
-public class EnhancedDatePickerResource
+public class EnhancedDateRangePickerResource
         implements OsgiVaadinStaticResource, Serializable {
 
     @Override
     public String getPath() {
-        return "/META-INF/resources/frontend/enhancedDatepickerConnector.js";
+        return "/META-INF/resources/frontend/enhancedDateRangePickerConnector.js";
     }
 
     @Override
     public String getAlias() {
-        return "/frontend/enhancedDatepickerConnector.js";
+        return "/frontend/enhancedDateRangePickerConnector.js";
     }
 
 }
