@@ -16,3 +16,4 @@ package*.json
 webpack.config.js
 node_modules/
 .vscode
+webpack.generated.js
