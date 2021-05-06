@@ -818,6 +818,10 @@ export const DateRangePickerMixin = (subclass) =>
     if (this._noInput && this.focusElement) {
       this.focusElement.blur();
     }
+    
+    var slot = this.shadowRoot.querySelector("slot[name='presets']");
+		var nodes = slot.assignedNodes();
+    this._overlayContent.addToolbarContent(nodes);
 
     this.updateStyles();
 
@@ -986,6 +990,16 @@ export const DateRangePickerMixin = (subclass) =>
     }
 
     return endInputValid && endMinMaxValid && endInputValidity;
+  }
+
+  removePreselectionById(id) {
+    var handler = e => {
+      if (e.detail.value) {
+        this._overlayContent.removePreselectionById(id);
+      }
+      this.$.overlay.removeEventListener('opened-changed',handler);
+    }
+    this.$.overlay.addEventListener('opened-changed', handler);
   }
 
   /** @private */

@@ -48,7 +48,6 @@ public class EnhancedDateRangePickerView extends DemoView {
         createDisabledDatePicker();
         createFinnishDatePicker();
         createWithClearButton();
-        createStartAndEndDatePickers();
         createLocaleChangeDatePicker();
         createParserDatePicker();
 
@@ -64,12 +63,12 @@ public class EnhancedDateRangePickerView extends DemoView {
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
 
         datePicker.addValueChangeListener(
-                event -> UpdateMessage(message, datePicker));
+                event -> updateMessage(message, datePicker));
         // end-source-example
 
         datePicker.setId("simple-picker");
 
-        addCard("Simple date picker", datePicker, message);
+        addCard("Simple date range picker", datePicker, message);
     }
 
     private void createPatternDatePicker() {
@@ -78,10 +77,10 @@ public class EnhancedDateRangePickerView extends DemoView {
         // begin-source-example
         // source-example-heading: Date picker with pattern
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),null), "dd-MMM-yyyy");
-        UpdateMessage(message, datePicker);
+        updateMessage(message, datePicker);
 
         datePicker.addValueChangeListener(
-                event -> UpdateMessage(message, datePicker));
+                event -> updateMessage(message, datePicker));
 
         TextField patten = new TextField();
         patten.setLabel("Define a pattern");
@@ -90,20 +89,20 @@ public class EnhancedDateRangePickerView extends DemoView {
         Button setPatternBtn = new Button("Set pattern from text field");
         setPatternBtn.addClickListener(e -> {
             datePicker.setPattern(patten.getValue());
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         Button dropPatternBtn = new Button("Drop pattern");
         dropPatternBtn.addClickListener(e -> {
             datePicker.setPattern(null);
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         // end-source-example
 
         datePicker.setId("Pattern-picker");
 
-        addCard("Date picker with pattern", datePicker, message, patten, setPatternBtn, dropPatternBtn);
+        addCard("Date range picker with pattern", datePicker, message, patten, setPatternBtn, dropPatternBtn);
     }
 
     private void createPatternAndLocaleDatePicker() {
@@ -113,10 +112,10 @@ public class EnhancedDateRangePickerView extends DemoView {
         // source-example-heading: Date picker with pattern and locale
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),null), "dd-MMM-yyyy");
 //        UI.getCurrent().setLocale(Locale.ITALIAN);
-        UpdateMessage(message, datePicker);
+        updateMessage(message, datePicker);
 
         datePicker.addValueChangeListener(
-                event -> UpdateMessage(message, datePicker));
+                event -> updateMessage(message, datePicker));
 
         TextField patten = new TextField();
         patten.setLabel("Define a pattern");
@@ -125,13 +124,13 @@ public class EnhancedDateRangePickerView extends DemoView {
         Button setPatternBtn = new Button("Set pattern from text field");
         setPatternBtn.addClickListener(e -> {
             datePicker.setPattern(patten.getValue());
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         Button dropPatternBtn = new Button("Drop pattern");
         dropPatternBtn.addClickListener(e -> {
             datePicker.setPattern(null);
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
         HorizontalLayout patterns = new HorizontalLayout();
         patterns.add(setPatternBtn, dropPatternBtn);
@@ -140,19 +139,19 @@ public class EnhancedDateRangePickerView extends DemoView {
         Button setlocaleBtn = new Button("Set locale to German");
         setlocaleBtn.addClickListener(e -> {
             datePicker.setLocale(Locale.GERMAN);
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         Button setlocaleEsBtn = new Button("Set locale to Spanish");
         setlocaleEsBtn.addClickListener(e -> {
             datePicker.setLocale(new Locale("es"));
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         Button setLocaleEnBtn = new Button("Set locale to English");
         setLocaleEnBtn.addClickListener(e -> {
             datePicker.setLocale(Locale.ENGLISH);
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         HorizontalLayout locales = new HorizontalLayout();
@@ -161,7 +160,7 @@ public class EnhancedDateRangePickerView extends DemoView {
 
         datePicker.setId("Pattern-picker");
 
-        addCard("Date picker with pattern and locale", datePicker, message, patten, patterns, locales);
+        addCard("Date range picker with pattern and locale", datePicker, message, patten, patterns, locales);
     }
 
     private void createMinAndMaxDatePicker() {
@@ -179,11 +178,11 @@ public class EnhancedDateRangePickerView extends DemoView {
         datePicker.setMax(now.withDayOfMonth(now.lengthOfMonth()));
 
         datePicker.addValueChangeListener(
-                event -> UpdateMessage(message, datePicker));
+                event -> updateMessage(message, datePicker));
         // end-source-example
 
         datePicker.setId("min-and-max-picker");
-        addCard("Date picker with min and max", datePicker, message);
+        addCard("Date range picker with min and max", datePicker, message);
     }
 
     private void createDisabledDatePicker() {
@@ -200,7 +199,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         });
 
         datePicker.setId("disabled-picker");
-        addCard("Disabled date picker", datePicker, message);
+        addCard("Disabled date range picker", datePicker, message);
     }
 
     private void createWithClearButton() {
@@ -260,66 +259,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         // end-source-example
 
         datePicker.setId("finnish-picker");
-        addCard("Internationalized date picker", datePicker, message);
-    }
-
-    private void createStartAndEndDatePickers() {
-        Div message = createMessageDiv("start-and-end-message");
-
-        // begin-source-example
-        // source-example-heading: Two linked date pickers
-        EnhancedDateRangePicker startDatePicker = new EnhancedDateRangePicker();
-        startDatePicker.setLabel("Start");
-        EnhancedDateRangePicker endDatePicker = new EnhancedDateRangePicker();
-        endDatePicker.setLabel("End");
-
-        startDatePicker.addValueChangeListener(event -> {
-            LocalDate selectedDate = event.getValue().getStartDate();
-            LocalDate endDate = endDatePicker.getValue().getEndDate();
-            if (selectedDate != null) {
-                endDatePicker.setMin(selectedDate.plusDays(1));
-                if (endDate == null) {
-                    endDatePicker.setOpened(true);
-                    message.setText("Select the ending date");
-                } else {
-                    message.setText(
-                            "Selected period:\nFrom " + selectedDate.toString()
-                                    + " to " + endDate.toString());
-                }
-            } else {
-                endDatePicker.setMin(null);
-                message.setText("Select the starting date");
-            }
-        });
-
-        endDatePicker.addValueChangeListener(event -> {
-            LocalDate selectedDate = event.getValue().getStartDate();
-            LocalDate startDate = startDatePicker.getValue().getStartDate();
-            if (selectedDate != null) {
-                startDatePicker.setMax(selectedDate.minusDays(1));
-                if (startDate != null) {
-                    message.setText(
-                            "Selected period:\nFrom " + startDate.toString()
-                                    + " to " + selectedDate.toString());
-                } else {
-                    message.setText("Select the starting date");
-                }
-            } else {
-                startDatePicker.setMax(null);
-                if (startDate != null) {
-                    message.setText("Select the ending date");
-                } else {
-                    message.setText("No date is selected");
-                }
-            }
-        });
-        // end-source-example
-
-        startDatePicker.setId("start-picker");
-        endDatePicker.setId("end-picker");
-        addCard("Two linked date pickers", startDatePicker, endDatePicker,
-                message);
-
+        addCard("Internationalized date range picker", datePicker, message);
     }
 
     private void createLocaleChangeDatePicker() {
@@ -334,24 +274,24 @@ public class EnhancedDateRangePickerView extends DemoView {
 
         locale1.addClickListener(e -> {
             datePicker.setLocale(Locale.US);
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
         locale2.addClickListener(e -> {
             datePicker.setLocale(Locale.UK);
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
         locale3.addClickListener(e -> {
             datePicker.setLocale(Locale.CHINA);
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         datePicker.addValueChangeListener(
-                event -> UpdateMessage(message, datePicker));
+                event -> updateMessage(message, datePicker));
         // end-source-example
         locale1.setId("Locale-US");
         locale2.setId("Locale-UK");
         datePicker.setId("locale-change-picker");
-        addCard("Date picker with customize locales", datePicker, locale1,
+        addCard("Date range picker with customize locales", datePicker, locale1,
                 locale2, locale3, message);
     }
     
@@ -367,10 +307,10 @@ public class EnhancedDateRangePickerView extends DemoView {
         });
         datePicker.setPattern("dd-MMM-yyyy");
         datePicker.setAutoOpen(false);
-        UpdateMessage(message, datePicker);
+        updateMessage(message, datePicker);
 
         datePicker.addValueChangeListener(
-                event -> UpdateMessage(message, datePicker));
+                event -> updateMessage(message, datePicker));
         
         TextField parsingPattenOne = new TextField();
         parsingPattenOne.setLabel("Define parsing pattern A");
@@ -383,7 +323,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         Button setParsingPatternBtn = new Button("Set parsing pattern from text fields A & B");
         setParsingPatternBtn.addClickListener(e -> {
             datePicker.setParsers(parsingPattenOne.getValue(), parsingPattenTwo.getValue());
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         TextField formattingPatten = new TextField();
@@ -393,20 +333,20 @@ public class EnhancedDateRangePickerView extends DemoView {
         Button setPatternBtn = new Button("Set formatting pattern from text field");
         setPatternBtn.addClickListener(e -> {
             datePicker.setPattern(formattingPatten.getValue());
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         Button dropPatternBtn = new Button("Drop formatting pattern");
         dropPatternBtn.addClickListener(e -> {
             datePicker.setPattern(null);
-            UpdateMessage(message, datePicker);
+            updateMessage(message, datePicker);
         });
 
         // end-source-example
 
         datePicker.setId("Pattern-picker");
 
-        addCard("Date picker with pattern", datePicker, message, parsingPattenOne, parsingPattenTwo,
+        addCard("Date range picker with pattern", datePicker, message, parsingPattenOne, parsingPattenTwo,
         		setParsingPatternBtn, formattingPatten, setPatternBtn, dropPatternBtn);
     }
 
@@ -415,16 +355,20 @@ public class EnhancedDateRangePickerView extends DemoView {
     /**
      * Additional code used in the demo
      */
-    private void UpdateMessage(Div message, EnhancedDateRangePicker datePicker) {
+    private void updateMessage(Div message, EnhancedDateRangePicker datePicker) {
         LocalDate selectedStartDate = datePicker.getValue().getStartDate();
+        LocalDate selectedEndDate = datePicker.getValue().getEndDate();
         if (selectedStartDate != null) {
         	String parsers = null;
         	if (datePicker.getParsers() != null)
         		parsers = Arrays.toString(datePicker.getParsers());
             message.setText(
-                    "Day: " + selectedStartDate.getDayOfMonth()
-                            + "\nMonth: " + selectedStartDate.getMonthValue()
-                            + "\nYear: " + selectedStartDate.getYear()
+                    "Start Day: " + selectedStartDate.getDayOfMonth()
+                            + "\nStart Month: " + selectedStartDate.getMonthValue()
+                            + "\nStart Year: " + selectedStartDate.getYear()
+                            + "\nEnd Date: " + (selectedEndDate==null?"":selectedEndDate.getDayOfMonth())
+                            + "\nEnd Month: " + (selectedEndDate==null?"":selectedEndDate.getMonthValue())
+                            + "\nEnd Year: " + (selectedEndDate==null?"":selectedEndDate.getYear())
                             + "\nLocale: " + datePicker.getLocale()
                             + "\nFormatting pattern: " + datePicker.getPattern()
                             + "\nParsing pattern: " + parsers);

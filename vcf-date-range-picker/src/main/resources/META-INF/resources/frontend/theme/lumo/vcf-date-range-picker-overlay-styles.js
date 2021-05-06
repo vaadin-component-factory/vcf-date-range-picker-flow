@@ -45,5 +45,5 @@ registerStyles(
         }
       }
       `,
-  { include: ['lumo-menu-overlay'], moduleId: 'lumo-date-range-picker-overlay' }
+  { include: ['lumo-menu-overlay'], moduleId: 'vcf-lumo-date-range-picker-overlay' }
 );

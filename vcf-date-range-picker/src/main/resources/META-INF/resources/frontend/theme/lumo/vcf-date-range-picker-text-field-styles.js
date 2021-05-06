@@ -15,5 +15,5 @@ registerStyles(
         --_lumo-text-field-overflow-mask-image: linear-gradient(to left, transparent, #000 1.25em);
       }
       `,
-  { moduleId: 'lumo-date-range-picker-text-field' }
+  { moduleId: 'vcf-lumo-date-range-picker-text-field' }
 );

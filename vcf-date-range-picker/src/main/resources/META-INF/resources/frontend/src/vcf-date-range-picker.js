@@ -200,7 +200,10 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
         </vcf-date-range-picker-overlay-content>
       </template>
     </vcf-date-range-picker-overlay>
-
+    <div style="display:none">
+      <slot name="presets"></slot>
+    </div>
+      
     <iron-media-query
         query="[[_fullscreenMediaQuery]]"
         query-matches="{{_fullscreen}}">

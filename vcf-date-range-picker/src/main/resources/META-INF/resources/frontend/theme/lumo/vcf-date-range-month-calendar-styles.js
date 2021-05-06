@@ -167,7 +167,7 @@ registerStyles(
         color: var(--lumo-disabled-text-color) !important;
       }
       `,
-  { moduleId: 'lumo-month-calendar' }
+  { moduleId: 'vcf-lumo-month-calendar' }
 );
 
 const $_documentContainer = document.createElement('template');
