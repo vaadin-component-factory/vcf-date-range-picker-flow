@@ -24,6 +24,7 @@ import java.util.Objects;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasValidation;
 import com.vaadin.flow.component.HasValue;
@@ -55,7 +56,7 @@ import elemental.json.JsonObject;
 @Tag("vcf-date-range-picker")
 @JsModule("./vcf-date-range-picker.js")
 public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedDateRangePicker, DateRange>
-        implements HasSize, HasValidation {
+        implements HasSize, HasValidation, HasComponents {
 
 	private static final String PROP_AUTO_OPEN_DISABLED = "autoOpenDisabled";
 
@@ -1006,6 +1007,47 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         public DatePickerI18n setCancel(String cancel) {
             this.cancel = cancel;
             return this;
+        }
+    }
+
+        /**
+     * Removes all contents from this component, this includes child components,
+     * text content as well as child elements that have been added directly to
+     * this component using the {@link Element} API.
+     */
+    @Override
+    public void removeAll() {
+        getElement().getChildren()
+                .forEach(child -> child.removeAttribute("slot"));
+        getElement().removeAllChildren();
+    }
+
+    /**
+     * Removes the given child components from this component.
+     *
+     * @param components
+     *            The components to remove.
+     * @throws IllegalArgumentException
+     *             if any of the components is not a child of this component.
+     */
+    @Override
+    public void remove(Component... components) {
+        for (Component component : components) {
+            if (getElement().equals(component.getElement().getParent())) {
+                component.getElement().removeAttribute("slot");
+                getElement().removeChild(component.getElement());
+            } else {
+                throw new IllegalArgumentException("The given component ("
+                        + component + ") is not a child of this component");
+            }
+        }
+    }
+
+    @Override
+    public void add(Component... components) {
+        HasComponents.super.add(components);
+        for (Component component : components) {
+            component.getElement().setAttribute("slot", "presets");
         }
     }
 }
