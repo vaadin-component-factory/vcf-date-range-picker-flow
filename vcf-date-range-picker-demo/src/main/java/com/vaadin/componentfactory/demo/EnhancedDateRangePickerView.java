@@ -16,12 +16,15 @@
 package com.vaadin.componentfactory.demo;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 import java.util.Locale;
 
 import com.vaadin.componentfactory.DateRange;
 import com.vaadin.componentfactory.EnhancedDateRangePicker;
 import com.vaadin.componentfactory.EnhancedDateRangePicker.DatePickerI18n;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
@@ -77,6 +80,27 @@ public class EnhancedDateRangePickerView extends DemoView {
         // begin-source-example
         // source-example-heading: Date picker with pattern
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),null), "dd-MMM-yyyy");
+        datePicker.setId("withCustomJSPreset");
+        Button from1st = new Button("From 1st");
+        from1st.setThemeName("tertiary");
+        from1st.addClickListener(ev->{
+            datePicker.setValue(new DateRange(LocalDate.now().withDayOfMonth(1), LocalDate.now()));
+        });
+        Button may2021MonthButton = new Button("May 2021");
+        may2021MonthButton.setThemeName("tertiary");
+        may2021MonthButton.setId("may2021MonthButton");
+        datePicker.add(from1st,may2021MonthButton);
+        datePicker.getElement().addAttachListener(ev->{
+            UI.getCurrent().getPage().executeJs("customElements.whenDefined('vcf-date-range-picker').then(function() {" +
+            "debugger;const button = document.querySelector('#may2021MonthButton');"+
+            "const dateRangePicker = document.querySelector('#Pattern-picker');"+
+            "button.addEventListener('click', function() {"+
+            "  dateRangePicker.value='2021-05-01;2021-05-31';"+
+            "  dateRangePicker.close();"+
+            "});" +
+            "});");            
+        });
+
         updateMessage(message, datePicker);
 
         datePicker.addValueChangeListener(
