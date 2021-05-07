@@ -33,6 +33,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.datepicker.GeneratedVaadinDatePicker;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.internal.JsonSerializer;
@@ -54,7 +55,8 @@ import elemental.json.JsonObject;
 @JavaScript("frontend://date-fns-limited.min.js")
 @JavaScript("frontend://enhancedDateRangePickerConnector.js")
 @Tag("vcf-date-range-picker")
-@JsModule("./vcf-date-range-picker.js")
+@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "^4.6.0")
+@JsModule("@vaadin-component-factory/vcf-date-range-picker/vcf-date-range-picker.js")
 public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedDateRangePicker, DateRange>
         implements HasSize, HasValidation, HasComponents {
 
