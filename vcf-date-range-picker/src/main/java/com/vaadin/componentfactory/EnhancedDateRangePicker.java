@@ -55,7 +55,7 @@ import elemental.json.JsonObject;
 @JavaScript("frontend://date-fns-limited.min.js")
 @JavaScript("frontend://enhancedDateRangePickerConnector.js")
 @Tag("vcf-date-range-picker")
-@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "^4.6.0")
+@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "^4.6.3")
 @JsModule("@vaadin-component-factory/vcf-date-range-picker/vcf-date-range-picker.js")
 public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedDateRangePicker, DateRange>
         implements HasSize, HasValidation, HasComponents {
@@ -812,6 +812,14 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         private String clear;
         private String today;
         private String cancel;
+        
+        private String yesterday;
+        private String thisWeek;
+        private String lastWeek;
+        private String thisMonth;
+        private String lastMonth;
+        private String thisYear;
+        private String lastYear;
 
         /**
          * Gets the name of the months.
@@ -820,6 +828,69 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
          */
         public List<String> getMonthNames() {
             return monthNames;
+        }
+
+        public String getLastYear() {
+            return lastYear;
+        }
+
+        public DatePickerI18n setLastYear(String lastYear) {
+            this.lastYear = lastYear;
+            return this;
+        }
+
+        public String getThisYear() {
+            return thisYear;
+        }
+
+        public DatePickerI18n setThisYear(String thisYear) {
+            this.thisYear = thisYear;
+            return this;
+        }
+
+        public String getLastMonth() {
+            return lastMonth;
+        }
+
+        public DatePickerI18n setLastMonth(String lastMonth) {
+            this.lastMonth = lastMonth;
+            return this;
+        }
+
+        public String getThisMonth() {
+            return thisMonth;
+        }
+
+        public DatePickerI18n setThisMonth(String thisMonth) {
+            this.thisMonth = thisMonth;
+            return this;
+        }
+
+        public String getLastWeek() {
+            return lastWeek;
+        }
+
+        public DatePickerI18n setLastWeek(String lastWeek) {
+            this.lastWeek = lastWeek;
+            return this;
+        }
+
+        public String getThisWeek() {
+            return thisWeek;
+        }
+
+        public DatePickerI18n setThisWeek(String thisWeek) {
+            this.thisWeek = thisWeek;
+            return this;
+        }
+
+        public String getYesterday() {
+            return yesterday;
+        }
+
+        public DatePickerI18n setYesterday(String yesterday) {
+            this.yesterday = yesterday;
+            return this;
         }
 
         /**
