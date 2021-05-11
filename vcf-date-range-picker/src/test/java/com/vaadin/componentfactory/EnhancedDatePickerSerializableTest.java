@@ -24,7 +24,7 @@ public class EnhancedDatePickerSerializableTest extends ClassesSerializableTest 
     @Override
     protected Stream<String> getExcludedPatterns() {
         return Stream.concat(super.getExcludedPatterns(), Stream.of(
-                "com\\.vaadin\\.flow\\.component\\.contextmenu\\.osgi\\..*"
+                "com\\.vaadin\\..*"
         ));
     }
 }
