@@ -16,14 +16,12 @@
 package com.vaadin.componentfactory.demo;
 
 import java.time.LocalDate;
-import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 import java.util.Locale;
 
 import com.vaadin.componentfactory.DateRange;
 import com.vaadin.componentfactory.EnhancedDateRangePicker;
 import com.vaadin.componentfactory.EnhancedDateRangePicker.DatePickerI18n;
-import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -92,7 +90,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         datePicker.add(from1st,may2021MonthButton);
         datePicker.getElement().addAttachListener(ev->{
             UI.getCurrent().getPage().executeJs("customElements.whenDefined('vcf-date-range-picker').then(function() {" +
-            "debugger;const button = document.querySelector('#may2021MonthButton');"+
+            "const button = document.querySelector('#may2021MonthButton');"+
             "const dateRangePicker = document.querySelector('#Pattern-picker');"+
             "button.addEventListener('click', function() {"+
             "  dateRangePicker.value='2021-05-01;2021-05-31';"+
@@ -253,6 +251,10 @@ public class EnhancedDateRangePickerView extends DemoView {
                 new DatePickerI18n().setWeek("viikko").setCalendar("kalenteri")
                         .setClear("tyhjennä").setToday("tänään")
                         .setCancel("peruuta").setFirstDayOfWeek(1)
+                        .setYesterday("eilen").setThisWeek("tämä viikko")
+                        .setLastWeek("viime viikko").setThisMonth("tässä kuussa")
+                        .setLastMonth("viime kuukausi").setThisYear("tämä vuosi")
+                        .setLastYear("viime vuonna")
                         .setMonthNames(Arrays.asList("tammiku", "helmikuu",
                                 "maaliskuu", "huhtikuu", "toukokuu", "kesäkuu",
                                 "heinäkuu", "elokuu", "syyskuu", "lokakuu",
