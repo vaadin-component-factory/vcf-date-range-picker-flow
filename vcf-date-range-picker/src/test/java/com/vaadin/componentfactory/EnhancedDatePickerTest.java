@@ -52,8 +52,9 @@ public class EnhancedDatePickerTest {
     public void datePicker_basicCases() {
         EnhancedDateRangePicker picker = new EnhancedDateRangePicker();
 
-        assertEquals(null, picker.getValue());
-        assertFalse(picker.getElement().hasProperty("value"));
+        assertEquals(null, picker.getValue().getStartDate());
+        assertEquals(null, picker.getValue().getEndDate());
+        assertEquals(";", picker.getElement().getProperty("value"));
 
         picker.setValue(new DateRange(LocalDate.of(2018, 4, 25),null));
         assertEquals("2018-04-25;", picker.getElement().getProperty("value"));
@@ -61,17 +62,14 @@ public class EnhancedDatePickerTest {
         picker.getElement().setProperty("value", "2017-03-24;");
         assertEquals(new DateRange(LocalDate.of(2017, 3, 24),null), picker.getValue());
 
-        // Cannot do removeProperty because
-        // https://github.com/vaadin/flow/issues/3994
-        picker.getElement().setProperty("value", null);
-        assertEquals(null, picker.getValue());
     }
 
     @Test
     public void defaultCtor_does_not_update_values() {
         EnhancedDateRangePicker picker = new EnhancedDateRangePicker();
-        assertNull(picker.getValue());
-        assertEquals(null, picker.getElement().getProperty("value"));
+        assertNull(picker.getValue().getStartDate());
+        assertNull(picker.getValue().getEndDate());
+        assertEquals(";", picker.getElement().getProperty("value"));
     }
 
     @Test
