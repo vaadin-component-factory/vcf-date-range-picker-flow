@@ -326,8 +326,8 @@ public class EnhancedDateRangePickerView extends DemoView {
      * Additional code used in the demo
      */
     private void updateMessage(Div message, EnhancedDateRangePicker datePicker) {
-        LocalDate selectedStartDate = datePicker.getValue().getStartDate();
-        LocalDate selectedEndDate = datePicker.getValue().getEndDate();
+        LocalDate selectedStartDate = (datePicker.getValue()==null)?null:datePicker.getValue().getStartDate();
+        LocalDate selectedEndDate = (datePicker.getValue()==null)?null:datePicker.getValue().getEndDate();
         if (selectedStartDate != null) {
         	String parsers = null;
         	if (datePicker.getParsers() != null)
