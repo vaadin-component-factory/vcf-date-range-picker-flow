@@ -17,6 +17,7 @@ package com.vaadin.componentfactory;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -61,6 +62,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         implements HasSize, HasValidation, HasComponents {
 
 	private static final String PROP_AUTO_OPEN_DISABLED = "autoOpenDisabled";
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
     private DatePickerI18n i18n;
 
@@ -69,8 +71,8 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         if (s!=null && !s.isEmpty() && s.contains(";")) {
             String startDateString = s.split(";",-1)[0];
             String endDateString = s.split(";",-1)[1];
-            LocalDate startDate = (StringUtil.isBlank(startDateString)?null:LocalDate.parse(startDateString));
-            LocalDate endDate = (StringUtil.isBlank(endDateString)?null:LocalDate.parse(endDateString));
+            LocalDate startDate = (StringUtil.isBlank(startDateString)?null:LocalDate.parse(startDateString, dateTimeFormatter));
+            LocalDate endDate = (StringUtil.isBlank(endDateString)?null:LocalDate.parse(endDateString, dateTimeFormatter));
             result = new DateRange(startDate,endDate);
         }
         return result;
@@ -79,7 +81,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     private final static SerializableFunction<DateRange, String> FORMATTER = d -> {
         String result = "";
         if (d!=null) {
-            result = String.format("%s;%s", d.getStartDate()==null?"":d.getStartDate() , d.getEndDate()==null?"":d.getEndDate());
+            result = String.format("%s;%s", d.getStartDate()==null?"":dateTimeFormatter.format(d.getStartDate()) , d.getEndDate()==null?"":dateTimeFormatter.format(d.getEndDate()));
         }
         return result;
     };
