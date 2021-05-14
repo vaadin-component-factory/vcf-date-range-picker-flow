@@ -544,7 +544,8 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         isGreaterThanMax  = value != null && value.getEndDate() != null && max != null && value.getEndDate().isAfter(max);
         isSmallerThenMin = value != null && value.getEndDate() != null && min != null && value.getEndDate().isBefore(min);
         boolean endDateInvalid = isRequiredButEmpty || isGreaterThanMax || isSmallerThenMin;
-        return startDateInvalid || endDateInvalid;
+        boolean endDateBeforeStartDate = value != null && value.getStartDate() != null && value.getEndDate() != null && value.getEndDate().isBefore(value.getStartDate());
+        return startDateInvalid || endDateInvalid || endDateBeforeStartDate;
     }    
 
     /**
