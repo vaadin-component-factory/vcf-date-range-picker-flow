@@ -50,7 +50,6 @@ public class EnhancedDateRangePickerView extends DemoView {
         createFinnishDatePicker();
         createWithClearButton();
         createLocaleChangeDatePicker();
-        createParserDatePicker();
 
         addCard("Additional code used in the demo",
                 new Label("These methods are used in the demo."));
@@ -321,61 +320,6 @@ public class EnhancedDateRangePickerView extends DemoView {
                 locale2, locale3, message);
     }
     
-    private void createParserDatePicker() {
-        Div message = createMessageDiv("Parser-date-picker");
-
-//        EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(LocalDate.now(), "dd-MMM-yyyy");
-        EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker("Date",new DateRange(LocalDate.now(),null));
-        datePicker.addInvalidChangeListener(event -> {
-        	if (event.isInvalid()) {
-        		datePicker.setErrorMessage("Error");
-        	}
-        });
-        datePicker.setPattern("dd-MMM-yyyy");
-        datePicker.setAutoOpen(false);
-        updateMessage(message, datePicker);
-
-        datePicker.addValueChangeListener(
-                event -> updateMessage(message, datePicker));
-        
-        TextField parsingPattenOne = new TextField();
-        parsingPattenOne.setLabel("Define parsing pattern A");
-        parsingPattenOne.setValue("dd-MM-yyyy");
-        
-        TextField parsingPattenTwo = new TextField();
-        parsingPattenTwo.setLabel("Define a parsing pattern B");
-        parsingPattenTwo.setValue("dd/MM/yy");
-        
-        Button setParsingPatternBtn = new Button("Set parsing pattern from text fields A & B");
-        setParsingPatternBtn.addClickListener(e -> {
-            datePicker.setParsers(parsingPattenOne.getValue(), parsingPattenTwo.getValue());
-            updateMessage(message, datePicker);
-        });
-
-        TextField formattingPatten = new TextField();
-        formattingPatten.setLabel("Define a formatting pattern");
-        formattingPatten.setValue("dd-MMM-yyyy");
-
-        Button setPatternBtn = new Button("Set formatting pattern from text field");
-        setPatternBtn.addClickListener(e -> {
-            datePicker.setPattern(formattingPatten.getValue());
-            updateMessage(message, datePicker);
-        });
-
-        Button dropPatternBtn = new Button("Drop formatting pattern");
-        dropPatternBtn.addClickListener(e -> {
-            datePicker.setPattern(null);
-            updateMessage(message, datePicker);
-        });
-
-        // end-source-example
-
-        datePicker.setId("Pattern-picker");
-
-        addCard("Date range picker with pattern", datePicker, message, parsingPattenOne, parsingPattenTwo,
-        		setParsingPatternBtn, formattingPatten, setPatternBtn, dropPatternBtn);
-    }
-
     // begin-source-example
     // source-example-heading: Additional code used in the demo
     /**
