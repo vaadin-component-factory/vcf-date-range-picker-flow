@@ -108,7 +108,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * Default constructor.
      */
     public EnhancedDateRangePicker() {
-        this((DateRange) null);
+        this(new DateRange(null,null));
     }
 
     /**
@@ -120,7 +120,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @see #setValue(Object)
      */
     public EnhancedDateRangePicker(DateRange initialDate) {
-        super(initialDate, null, String.class, PARSER, FORMATTER);
+        super(initialDate, new DateRange(null,null), String.class, PARSER, FORMATTER);
 
         // workaround for https://github.com/vaadin/flow/issues/3496
         setInvalid(false);
