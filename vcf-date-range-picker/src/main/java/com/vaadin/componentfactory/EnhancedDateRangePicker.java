@@ -121,6 +121,8 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     public EnhancedDateRangePicker(DateRange initialDate) {
         super(initialDate, new DateRange(null,null), String.class, PARSER, FORMATTER);
+        this.setPattern("yyyy-MM-dd");
+        this.setParsers("yyyy-MM-dd");
 
         // workaround for https://github.com/vaadin/flow/issues/3496
         setInvalid(false);
