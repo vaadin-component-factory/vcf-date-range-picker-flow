@@ -590,6 +590,11 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         super.setPlaceholder(placeholder);
     }
 
+    protected void setEndPlaceholder(String endPlaceholder) {
+        getElement().setProperty("endPlaceholder",
+                endPlaceholder == null ? "" : endPlaceholder);
+    }
+    
     /**
      * Gets the placeholder of the datepicker.
      * <p>
@@ -601,6 +606,19 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     public String getPlaceholder() {
         return getPlaceholderString();
+    }
+
+    /**
+     * Gets the end placeholder of the datepicker.
+     * <p>
+     * This property is not synchronized automatically from the client side, so
+     * the returned value may not be the same as in client side.
+     * </p>
+     *
+     * @return the {@code placeholder} property of the datePicker
+     */
+    protected String getEndPlaceholder() {
+        return getElement().getProperty("endPlaceholder");
     }
 
     /**
