@@ -37,7 +37,7 @@ import com.vaadin.flow.router.Route;
  *
  * @author Vaadin Ltd
  */
-@Route("vcf-date-range-picker")
+@Route("")
 public class EnhancedDateRangePickerView extends DemoView {
 
     @Override
