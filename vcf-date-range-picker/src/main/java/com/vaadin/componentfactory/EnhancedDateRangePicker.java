@@ -535,12 +535,12 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     private boolean isInvalid(DateRange value) {
         boolean isRequiredButEmpty = required && Objects.equals(getEmptyValue(), value);
-        boolean isGreaterThanMax  = value != null && max != null && value.getStartDate().isAfter(max);
-        boolean isSmallerThenMin = value != null && min != null && value.getStartDate().isBefore(min);
+        boolean isGreaterThanMax  = value != null && value.getStartDate() != null && max != null && value.getStartDate().isAfter(max);
+        boolean isSmallerThenMin = value != null && value.getStartDate() != null && min != null && value.getStartDate().isBefore(min);
         boolean startDateInvalid = isRequiredButEmpty || isGreaterThanMax || isSmallerThenMin;
         isRequiredButEmpty = required && Objects.equals(getEmptyValue(), value);
-        isGreaterThanMax  = value != null && max != null && value.getEndDate().isAfter(max);
-        isSmallerThenMin = value != null && min != null && value.getEndDate().isBefore(min);
+        isGreaterThanMax  = value != null && value.getEndDate() != null && max != null && value.getEndDate().isAfter(max);
+        isSmallerThenMin = value != null && value.getEndDate() != null && min != null && value.getEndDate().isBefore(min);
         boolean endDateInvalid = isRequiredButEmpty || isGreaterThanMax || isSmallerThenMin;
         return startDateInvalid || endDateInvalid;
     }    
