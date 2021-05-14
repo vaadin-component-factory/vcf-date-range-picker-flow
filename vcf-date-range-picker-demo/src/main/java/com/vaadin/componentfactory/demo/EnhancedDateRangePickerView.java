@@ -86,6 +86,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         Button may2021MonthButton = new Button("May 2021");
         may2021MonthButton.setThemeName("tertiary");
         may2021MonthButton.setId("may2021MonthButton");
+        datePicker.removePresetByIds(EnhancedDateRangePicker.PRESET_LAST_MONTH, EnhancedDateRangePicker.PRESET_THIS_MONTH);
         datePicker.add(from1st,may2021MonthButton);
         datePicker.getElement().addAttachListener(ev->{
             UI.getCurrent().getPage().executeJs("customElements.whenDefined('vcf-date-range-picker').then(function() {" +

@@ -63,6 +63,15 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
 
 	private static final String PROP_AUTO_OPEN_DISABLED = "autoOpenDisabled";
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+    public static final String PRESET_TODAY = "todayButton";
+    public static final String PRESET_YESTERDAY = "yesterdayButton";
+    public static final String PRESET_THIS_WEEK = "thisWeekButton";
+    public static final String PRESET_LAST_WEEK = "lastWeekButton";
+    public static final String PRESET_THIS_MONTH = "thisMonthButton";
+    public static final String PRESET_LAST_MONTH = "lastMonthButton";
+    public static final String PRESET_THIS_YEAR = "thisYearButton";
+    public static final String PRESET_LAST_YEAR = "lastYearButton";
+    public static final String PRESET_CANCEL_BUTTON = "cancelButton";
 
     private DatePickerI18n i18n;
 
@@ -1144,6 +1153,12 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         HasComponents.super.add(components);
         for (Component component : components) {
             component.getElement().setAttribute("slot", "presets");
+        }
+    }
+
+    public void removePresetByIds(String ... ids) {
+        for (String id : ids) {
+            this.getElement().executeJs("this.removePreselectionById($0)", id);
         }
     }
 }
