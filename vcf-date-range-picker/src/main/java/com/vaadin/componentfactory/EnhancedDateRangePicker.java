@@ -392,7 +392,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     public void setParsers(String... parserPatterns){
     	this.parserPatterns = parserPatterns;
-        runBeforeClientResponse(ui -> getElement().callFunction("$connector.setParsers", parserPatterns));
+        runBeforeClientResponse(ui -> getElement().callJsFunction("$connector.setParsers", parserPatterns));
     }
     
     /**
@@ -413,7 +413,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     public void setPattern(String formattingPattern){
         this.formattingPattern = formattingPattern;
-        runBeforeClientResponse(ui -> getElement().callFunction("$connector.setPattern", formattingPattern));
+        runBeforeClientResponse(ui -> getElement().callJsFunction("$connector.setPattern", formattingPattern));
     }
 
     /**
@@ -444,7 +444,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     }
 
     private void initConnector() {
-        runBeforeClientResponse(ui -> ui.getPage().executeJavaScript(
+        runBeforeClientResponse(ui -> ui.getPage().executeJs(
                 "window.Vaadin.Flow.enhancedDateRangePickerConnector.initLazy($0)",
                 getElement()));
     }
