@@ -17,6 +17,7 @@ package com.vaadin.componentfactory;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -61,6 +62,16 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         implements HasSize, HasValidation, HasComponents {
 
 	private static final String PROP_AUTO_OPEN_DISABLED = "autoOpenDisabled";
+    private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+    public static final String PRESET_TODAY = "todayButton";
+    public static final String PRESET_YESTERDAY = "yesterdayButton";
+    public static final String PRESET_THIS_WEEK = "thisWeekButton";
+    public static final String PRESET_LAST_WEEK = "lastWeekButton";
+    public static final String PRESET_THIS_MONTH = "thisMonthButton";
+    public static final String PRESET_LAST_MONTH = "lastMonthButton";
+    public static final String PRESET_THIS_YEAR = "thisYearButton";
+    public static final String PRESET_LAST_YEAR = "lastYearButton";
+    public static final String PRESET_CANCEL_BUTTON = "cancelButton";
 
     private DatePickerI18n i18n;
 
@@ -69,8 +80,8 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         if (s!=null && !s.isEmpty() && s.contains(";")) {
             String startDateString = s.split(";",-1)[0];
             String endDateString = s.split(";",-1)[1];
-            LocalDate startDate = (StringUtil.isBlank(startDateString)?null:LocalDate.parse(startDateString));
-            LocalDate endDate = (StringUtil.isBlank(endDateString)?null:LocalDate.parse(endDateString));
+            LocalDate startDate = (StringUtil.isBlank(startDateString)?null:LocalDate.parse(startDateString, dateTimeFormatter));
+            LocalDate endDate = (StringUtil.isBlank(endDateString)?null:LocalDate.parse(endDateString, dateTimeFormatter));
             result = new DateRange(startDate,endDate);
         }
         return result;
@@ -79,7 +90,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     private final static SerializableFunction<DateRange, String> FORMATTER = d -> {
         String result = "";
         if (d!=null) {
-            result = String.format("%s;%s", d.getStartDate()==null?"":d.getStartDate() , d.getEndDate()==null?"":d.getEndDate());
+            result = String.format("%s;%s", d.getStartDate()==null?"":dateTimeFormatter.format(d.getStartDate()) , d.getEndDate()==null?"":dateTimeFormatter.format(d.getEndDate()));
         }
         return result;
     };
@@ -106,7 +117,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * Default constructor.
      */
     public EnhancedDateRangePicker() {
-        this((DateRange) null);
+        this(new DateRange(null,null));
     }
 
     /**
@@ -118,7 +129,9 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @see #setValue(Object)
      */
     public EnhancedDateRangePicker(DateRange initialDate) {
-        super(initialDate, null, String.class, PARSER, FORMATTER);
+        super(initialDate, new DateRange(null,null), String.class, PARSER, FORMATTER);
+        this.setPattern("yyyy-MM-dd");
+        this.setParsers("yyyy-MM-dd");
 
         // workaround for https://github.com/vaadin/flow/issues/3496
         setInvalid(false);
@@ -392,7 +405,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     public void setParsers(String... parserPatterns){
     	this.parserPatterns = parserPatterns;
-        runBeforeClientResponse(ui -> getElement().callFunction("$connector.setParsers", parserPatterns));
+        runBeforeClientResponse(ui -> getElement().callJsFunction("$connector.setParsers", parserPatterns));
     }
     
     /**
@@ -413,7 +426,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     public void setPattern(String formattingPattern){
         this.formattingPattern = formattingPattern;
-        runBeforeClientResponse(ui -> getElement().callFunction("$connector.setPattern", formattingPattern));
+        runBeforeClientResponse(ui -> getElement().callJsFunction("$connector.setPattern", formattingPattern));
     }
 
     /**
@@ -444,7 +457,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     }
 
     private void initConnector() {
-        runBeforeClientResponse(ui -> ui.getPage().executeJavaScript(
+        runBeforeClientResponse(ui -> ui.getPage().executeJs(
                 "window.Vaadin.Flow.enhancedDateRangePickerConnector.initLazy($0)",
                 getElement()));
     }
@@ -533,14 +546,15 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     private boolean isInvalid(DateRange value) {
         boolean isRequiredButEmpty = required && Objects.equals(getEmptyValue(), value);
-        boolean isGreaterThanMax  = value != null && max != null && value.getStartDate().isAfter(max);
-        boolean isSmallerThenMin = value != null && min != null && value.getStartDate().isBefore(min);
+        boolean isGreaterThanMax  = value != null && value.getStartDate() != null && max != null && value.getStartDate().isAfter(max);
+        boolean isSmallerThenMin = value != null && value.getStartDate() != null && min != null && value.getStartDate().isBefore(min);
         boolean startDateInvalid = isRequiredButEmpty || isGreaterThanMax || isSmallerThenMin;
         isRequiredButEmpty = required && Objects.equals(getEmptyValue(), value);
-        isGreaterThanMax  = value != null && max != null && value.getEndDate().isAfter(max);
-        isSmallerThenMin = value != null && min != null && value.getEndDate().isBefore(min);
+        isGreaterThanMax  = value != null && value.getEndDate() != null && max != null && value.getEndDate().isAfter(max);
+        isSmallerThenMin = value != null && value.getEndDate() != null && min != null && value.getEndDate().isBefore(min);
         boolean endDateInvalid = isRequiredButEmpty || isGreaterThanMax || isSmallerThenMin;
-        return startDateInvalid || endDateInvalid;
+        boolean endDateBeforeStartDate = value != null && value.getStartDate() != null && value.getEndDate() != null && value.getEndDate().isBefore(value.getStartDate());
+        return startDateInvalid || endDateInvalid || endDateBeforeStartDate;
     }    
 
     /**
@@ -588,6 +602,11 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         super.setPlaceholder(placeholder);
     }
 
+    protected void setEndPlaceholder(String endPlaceholder) {
+        getElement().setProperty("endPlaceholder",
+                endPlaceholder == null ? "" : endPlaceholder);
+    }
+    
     /**
      * Gets the placeholder of the datepicker.
      * <p>
@@ -599,6 +618,19 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     public String getPlaceholder() {
         return getPlaceholderString();
+    }
+
+    /**
+     * Gets the end placeholder of the datepicker.
+     * <p>
+     * This property is not synchronized automatically from the client side, so
+     * the returned value may not be the same as in client side.
+     * </p>
+     *
+     * @return the {@code placeholder} property of the datePicker
+     */
+    protected String getEndPlaceholder() {
+        return getElement().getProperty("endPlaceholder");
     }
 
     /**
@@ -1121,6 +1153,12 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         HasComponents.super.add(components);
         for (Component component : components) {
             component.getElement().setAttribute("slot", "presets");
+        }
+    }
+
+    public void removePresetByIds(String ... ids) {
+        for (String id : ids) {
+            this.getElement().executeJs("this.removePreselectionById($0)", id);
         }
     }
 }
