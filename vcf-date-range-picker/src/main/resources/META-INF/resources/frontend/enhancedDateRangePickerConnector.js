@@ -61,13 +61,23 @@ window.Vaadin.Flow.enhancedDateRangePickerConnector = {
             return string.replace(/[^\x00-\x7F]/g, '');
         };
 
-        const getInputValue = function () {
+        const getInputStartValue = function () {
             let inputValue = '';
             try {
-                inputValue = datepicker._inputValue;
+                inputValue = datepicker._inputStartValue;
             } catch (err) {
                 /* component not ready: falling back to stored value */
-                inputValue = datepicker.value || '';
+                inputStartValue = datepicker.value || '';
+            }
+            return inputValue;
+        };
+        const getInputEndValue = function () {
+            let inputValue = '';
+            try {
+                inputValue = datepicker._inputEndValue;
+            } catch (err) {
+                /* component not ready: falling back to stored value */
+                inputEndValue = datepicker.value || '';
             }
             return inputValue;
         };
@@ -127,11 +137,17 @@ window.Vaadin.Flow.enhancedDateRangePickerConnector = {
 
         datepicker.$connector.setLocalePatternAndParsers = function (locale, pattern, parsers) {
             let language = locale ? locale.split('-')[0] : 'enUS';
-            let currentDate = false;
-            let inputValue = getInputValue();
-            if (datepicker.i18n.parseDate !== 'undefined' && inputValue) {
+            let currentStartDate = false;
+            let inputStartValue = getInputStartValue();
+            if (datepicker.i18n.parseDate !== 'undefined' && inputStartValue) {
                 /* get current date with old parsing */
-                currentDate = datepicker.i18n.parseDate(inputValue);
+                currentStartDate = datepicker.i18n.parseDate(inputStartValue);
+            }
+            let currentEndDate = false;
+            let inputEndValue = getInputEndValue();
+            if (datepicker.i18n.parseDate !== 'undefined' && inputEndValue) {
+                /* get current date with old parsing */
+                currentEndDate = datepicker.i18n.parseDate(inputEndValue);
             }
 
             /* create test-string where to extract parsing regex */
@@ -196,11 +212,16 @@ window.Vaadin.Flow.enhancedDateRangePickerConnector = {
                 }
             };
 
-            if (inputValue === '') {
+            if (inputStartValue === '') {
                 oldLocale = locale;
-            } else if (currentDate) {
+            } else if (currentStartDate || currentEndDate) {
                 /* set current date to invoke use of new locale */
-                datepicker._selectedDate = new Date(currentDate.year, currentDate.month, currentDate.day);
+                if (currentStartDate) {
+                    datepicker._selectedStartDate = new Date(currentStartDate.year, currentStartDate.month, currentStartDate.day);
+                }
+                if (currentEndDate) {
+                    datepicker._selectedEndDate = new Date(currentEndDate.year, currentEndDate.month, currentEndDate.day);
+                }
             }
         };
 
