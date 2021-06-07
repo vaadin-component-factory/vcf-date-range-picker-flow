@@ -76,7 +76,7 @@ public class EnhancedDateRangePickerView extends DemoView {
 
         // begin-source-example
         // source-example-heading: Date picker with pattern
-        EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),null), "dd-MMM-yyyy");
+        EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),LocalDate.now().plusDays(7)), "dd-MMM-yyyy");
         datePicker.setId("withCustomJSPreset");
         Button from1st = new Button("From 1st");
         from1st.setThemeName("tertiary");
