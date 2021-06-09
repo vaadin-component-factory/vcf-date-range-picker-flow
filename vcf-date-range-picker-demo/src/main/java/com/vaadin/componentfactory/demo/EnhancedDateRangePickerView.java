@@ -24,6 +24,7 @@ import com.vaadin.componentfactory.EnhancedDateRangePicker;
 import com.vaadin.componentfactory.EnhancedDateRangePicker.DatePickerI18n;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.NativeButton;
@@ -38,6 +39,7 @@ import com.vaadin.flow.router.Route;
  * @author Vaadin Ltd
  */
 @Route("")
+@CssImport(value = "./styles/styles.css", themeFor = "vcf-date-range-month-calendar")
 public class EnhancedDateRangePickerView extends DemoView {
 
     @Override
@@ -61,6 +63,8 @@ public class EnhancedDateRangePickerView extends DemoView {
         // begin-source-example
         // source-example-heading: Simple date picker
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
+        datePicker.setClassNameForDates("publicHoliday", LocalDate.now());
+        datePicker.getElement().getThemeList().add("withHolidays");
 
         datePicker.addValueChangeListener(
                 event -> updateMessage(message, datePicker));

@@ -1,0 +1,3 @@
+:host([theme~="withHolidays"]) [part='date'].publicHoliday {
+    background-color: red;
+}

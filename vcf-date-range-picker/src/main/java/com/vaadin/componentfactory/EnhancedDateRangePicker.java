@@ -18,9 +18,11 @@ package com.vaadin.componentfactory;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
@@ -427,6 +429,12 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     public void setPattern(String formattingPattern){
         this.formattingPattern = formattingPattern;
         runBeforeClientResponse(ui -> getElement().callJsFunction("$connector.setPattern", formattingPattern));
+    }
+
+    public void setClassNameForDates(String className, LocalDate ... dates) {
+        String datesString = Arrays.asList(dates).stream().map(adate->"'" + adate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "'").collect(Collectors.joining(","));
+        datesString = "[" + datesString + "]";
+        this.getElement().executeJs("this.setClassNameForDates($0," + datesString + ")", className);
     }
 
     /**
