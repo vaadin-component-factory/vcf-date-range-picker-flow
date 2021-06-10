@@ -591,6 +591,31 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         return super.isClearButtonVisibleBoolean();
     }
 
+    /**
+     * Sets displaying a clear button in the datepicker when it has value.
+     * <p>
+     * The clear button is an icon, which can be clicked to set the datepicker
+     * value to {@code null}.
+     *
+     * @param clearButtonVisible
+     *            {@code true} to display the clear button, {@code false} to
+     *            hide it
+     */
+    public void setSidePanelVisible(boolean sidePanelVisible) {
+        getElement().setProperty("hideSidePanel", !sidePanelVisible);
+    }
+
+    /**
+     * Gets whether this datepicker displays a clear button when it has value.
+     *
+     * @return {@code true} if this datepicker displays a clear button,
+     *         {@code false} otherwise
+     * @see #setClearButtonVisible(boolean)
+     */
+    public boolean isSidePanelVisible() {
+        return !getElement().getProperty("hideSidePanel", false);
+    }
+
     @Override
     public void setLabel(String label) {
         super.setLabel(label);

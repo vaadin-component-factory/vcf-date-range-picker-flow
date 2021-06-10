@@ -197,6 +197,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setLabel("Select a day within this month");
         datePicker.setPlaceholder("Date within this month");
+        datePicker.setSidePanelVisible(false);
 
         LocalDate now = LocalDate.now();
 
@@ -208,7 +209,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         // end-source-example
 
         datePicker.setId("min-and-max-picker");
-        addCard("Date range picker with min and max", datePicker, message);
+        addCard("Date range picker with min and max without side panel", datePicker, message);
     }
 
     private void createDisabledDatePicker() {
