@@ -64,7 +64,8 @@ public class EnhancedDateRangePickerView extends DemoView {
         // begin-source-example
         // source-example-heading: Simple date picker
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
-        datePicker.setClassNameForDates("publicHoliday", LocalDate.now());
+        datePicker.setClassNameForDates("publicHolidayRed", LocalDate.now(), LocalDate.now().plusDays(10));
+        datePicker.setClassNameForDates("publicHolidayGreen", LocalDate.now().plusDays(1), LocalDate.now().plusDays(11));
         datePicker.getElement().getThemeList().add("withHolidays");
 
         datePicker.addValueChangeListener(
