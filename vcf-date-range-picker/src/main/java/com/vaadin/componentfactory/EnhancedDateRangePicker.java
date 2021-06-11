@@ -792,6 +792,13 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     }
 
     /**
+     * Opens the datepicker overlay.
+     */
+    public void openOnPosition(int x, int y) {
+        this.getElement().executeJs("this.openOnPosition($0,$1)", x,y);
+    }
+
+    /**
      * Closes the datepicker overlay.
      */
     @Override
