@@ -47,6 +47,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         createPatternDatePicker();
         createPatternAndLocaleDatePicker();
         createSimpleDatePicker();
+        createSimpleDatePickerWithoutTextFields();
         createMinAndMaxDatePicker();
         createDisabledDatePicker();
         createFinnishDatePicker();
@@ -73,6 +74,27 @@ public class EnhancedDateRangePickerView extends DemoView {
         datePicker.setId("simple-picker");
 
         addCard("Simple date range picker", datePicker, message);
+    }
+
+    private void createSimpleDatePickerWithoutTextFields() {
+        Div message = createMessageDiv("simple-picker-without-text-fields-message");
+
+        // begin-source-example
+        // source-example-heading: Simple date picker
+        EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
+        datePicker.setTextFieldsVisible(false);
+        Button openDRP = new Button("Open Date Range Picker");
+        openDRP.addClickListener(ev->{
+            datePicker.openOnPosition(ev.getClientX(), ev.getClientY());
+        });
+
+        datePicker.addValueChangeListener(
+                event -> updateMessage(message, datePicker));
+        // end-source-example
+
+        datePicker.setId("simple-picker");
+
+        addCard("Simple date range picker without visible text fields", datePicker, openDRP, message);
     }
 
     private void createPatternDatePicker() {
