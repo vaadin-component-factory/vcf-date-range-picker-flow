@@ -24,6 +24,7 @@ import com.vaadin.componentfactory.EnhancedDateRangePicker;
 import com.vaadin.componentfactory.EnhancedDateRangePicker.DatePickerI18n;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.NativeButton;
@@ -38,6 +39,7 @@ import com.vaadin.flow.router.Route;
  * @author Vaadin Ltd
  */
 @Route("")
+@CssImport(value = "./styles/styles.css", themeFor = "vcf-date-range-month-calendar")
 public class EnhancedDateRangePickerView extends DemoView {
 
     @Override
@@ -45,6 +47,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         createPatternDatePicker();
         createPatternAndLocaleDatePicker();
         createSimpleDatePicker();
+        createSimpleDatePickerWithoutTextFields();
         createMinAndMaxDatePicker();
         createDisabledDatePicker();
         createFinnishDatePicker();
@@ -61,6 +64,9 @@ public class EnhancedDateRangePickerView extends DemoView {
         // begin-source-example
         // source-example-heading: Simple date picker
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
+        datePicker.setClassNameForDates("publicHolidayRed", LocalDate.now(), LocalDate.now().plusDays(10));
+        datePicker.setClassNameForDates("publicHolidayGreen", LocalDate.now().plusDays(1), LocalDate.now().plusDays(11));
+        datePicker.getElement().getThemeList().add("withHolidays");
 
         datePicker.addValueChangeListener(
                 event -> updateMessage(message, datePicker));
@@ -69,6 +75,27 @@ public class EnhancedDateRangePickerView extends DemoView {
         datePicker.setId("simple-picker");
 
         addCard("Simple date range picker", datePicker, message);
+    }
+
+    private void createSimpleDatePickerWithoutTextFields() {
+        Div message = createMessageDiv("simple-picker-without-text-fields-message");
+
+        // begin-source-example
+        // source-example-heading: Simple date picker
+        EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
+        datePicker.setTextFieldsVisible(false);
+        Button openDRP = new Button("Open Date Range Picker");
+        openDRP.addClickListener(ev->{
+            datePicker.openOnPosition(ev.getClientX(), ev.getClientY());
+        });
+
+        datePicker.addValueChangeListener(
+                event -> updateMessage(message, datePicker));
+        // end-source-example
+
+        datePicker.setId("simple-picker");
+
+        addCard("Simple date range picker without visible text fields", datePicker, openDRP, message);
     }
 
     private void createPatternDatePicker() {
@@ -193,6 +220,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setLabel("Select a day within this month");
         datePicker.setPlaceholder("Date within this month");
+        datePicker.setSidePanelVisible(false);
 
         LocalDate now = LocalDate.now();
 
@@ -204,7 +232,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         // end-source-example
 
         datePicker.setId("min-and-max-picker");
-        addCard("Date range picker with min and max", datePicker, message);
+        addCard("Date range picker with min and max without side panel", datePicker, message);
     }
 
     private void createDisabledDatePicker() {

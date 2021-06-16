@@ -1,0 +1,6 @@
+:host([theme~="withHolidays"]) [part='date'].publicHolidayRed {
+    background-color: red;
+}
+:host([theme~="withHolidays"]) [part='date'].publicHolidayGreen {
+    background-color: green;
+}

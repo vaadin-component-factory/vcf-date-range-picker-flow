@@ -18,9 +18,11 @@ package com.vaadin.componentfactory;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
@@ -56,7 +58,7 @@ import elemental.json.JsonObject;
 @JavaScript("frontend://date-fns-limited.min.js")
 @JavaScript("frontend://enhancedDateRangePickerConnector.js")
 @Tag("vcf-date-range-picker")
-@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "^4.7.0")
+@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "^4.8.2")
 @JsModule("@vaadin-component-factory/vcf-date-range-picker/vcf-date-range-picker.js")
 public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedDateRangePicker, DateRange>
         implements HasSize, HasValidation, HasComponents {
@@ -429,6 +431,12 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         runBeforeClientResponse(ui -> getElement().callJsFunction("$connector.setPattern", formattingPattern));
     }
 
+    public void setClassNameForDates(String className, LocalDate ... dates) {
+        String datesString = Arrays.asList(dates).stream().map(adate->"'" + adate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + "'").collect(Collectors.joining(","));
+        datesString = "[" + datesString + "]";
+        this.getElement().executeJs("this.setClassNameForDates($0," + datesString + ")", className);
+    }
+
     /**
      * Gets the Pattern for this date picker
      *
@@ -583,6 +591,56 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         return super.isClearButtonVisibleBoolean();
     }
 
+    /**
+     * Sets displaying a clear button in the datepicker when it has value.
+     * <p>
+     * The clear button is an icon, which can be clicked to set the datepicker
+     * value to {@code null}.
+     *
+     * @param clearButtonVisible
+     *            {@code true} to display the clear button, {@code false} to
+     *            hide it
+     */
+    public void setSidePanelVisible(boolean sidePanelVisible) {
+        getElement().setProperty("hideSidePanel", !sidePanelVisible);
+    }
+
+    /**
+     * Gets whether this datepicker displays a clear button when it has value.
+     *
+     * @return {@code true} if this datepicker displays a clear button,
+     *         {@code false} otherwise
+     * @see #setClearButtonVisible(boolean)
+     */
+    public boolean isTextFieldsVisible() {
+        return !getElement().getProperty("hideTextFields", false);
+    }
+
+    /**
+     * Sets displaying a clear button in the datepicker when it has value.
+     * <p>
+     * The clear button is an icon, which can be clicked to set the datepicker
+     * value to {@code null}.
+     *
+     * @param clearButtonVisible
+     *            {@code true} to display the clear button, {@code false} to
+     *            hide it
+     */
+    public void setTextFieldsVisible(boolean textFieldsVisible) {
+        getElement().setProperty("hideTextFields", !textFieldsVisible);
+    }
+
+    /**
+     * Gets whether this datepicker displays a clear button when it has value.
+     *
+     * @return {@code true} if this datepicker displays a clear button,
+     *         {@code false} otherwise
+     * @see #setClearButtonVisible(boolean)
+     */
+    public boolean isSidePanelVisible() {
+        return !getElement().getProperty("hideSidePanel", false);
+    }
+
     @Override
     public void setLabel(String label) {
         super.setLabel(label);
@@ -731,6 +789,13 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     @Override
     public void open() {
         super.setOpened(true);
+    }
+
+    /**
+     * Opens the datepicker overlay.
+     */
+    public void openOnPosition(int x, int y) {
+        this.getElement().executeJs("this.openOnPosition($0,$1)", x,y);
     }
 
     /**
