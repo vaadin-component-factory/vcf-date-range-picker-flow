@@ -8,7 +8,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.dom.Element;
 
-class PrefixUtil {
+class EnhancedDateRangePickerPrefixUtil {
 
     private static Stream<Element> getElementsInSlot(HasElement target,
             String slot) {

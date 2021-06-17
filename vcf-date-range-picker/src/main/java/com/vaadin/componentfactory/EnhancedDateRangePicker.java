@@ -294,7 +294,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      */
     @Deprecated
     public void disableClientValidation() {
-        FieldValidationUtil.disableClientValidation(this);
+        EnhancedDateRangePickerValidationUtil.disableClientValidation(this);
     }
 
     /**
@@ -461,7 +461,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         if (formattingPattern != null) {
             setPattern(formattingPattern);
         }
-        FieldValidationUtil.disableClientValidation(this);
+        EnhancedDateRangePickerValidationUtil.disableClientValidation(this);
     }
 
     private void initConnector() {
@@ -882,7 +882,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *            prefix component
      */
     public void setPrefixComponent(Component component) {
-    	PrefixUtil.setPrefixComponent(this, component);
+    	EnhancedDateRangePickerPrefixUtil.setPrefixComponent(this, component);
     }
     
     /**
@@ -893,7 +893,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @see #setPrefixComponent(Component)
      */
     public Component getPrefixComponent() {
-    	return PrefixUtil.getPrefixComponent(this);
+    	return EnhancedDateRangePickerPrefixUtil.getPrefixComponent(this);
     }
 
     /**
