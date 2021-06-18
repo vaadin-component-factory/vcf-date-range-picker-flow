@@ -58,7 +58,7 @@ import elemental.json.JsonObject;
 @JavaScript("frontend://date-fns-limited.min.js")
 @JavaScript("frontend://enhancedDateRangePickerConnector.js")
 @Tag("vcf-date-range-picker")
-@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "^4.8.2")
+@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "^4.8.4")
 @JsModule("@vaadin-component-factory/vcf-date-range-picker/vcf-date-range-picker.js")
 public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedDateRangePicker, DateRange>
         implements HasSize, HasValidation, HasComponents {
