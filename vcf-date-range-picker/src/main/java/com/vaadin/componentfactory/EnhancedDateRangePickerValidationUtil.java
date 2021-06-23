@@ -24,9 +24,9 @@ import com.vaadin.flow.internal.StateNode;
  *
  * @author Vaadin Ltd
  */
-final class FieldValidationUtil {
+final class EnhancedDateRangePickerValidationUtil {
 
-    private FieldValidationUtil() {
+    private EnhancedDateRangePickerValidationUtil() {
         // utility class should not be instantiated
     }
 
