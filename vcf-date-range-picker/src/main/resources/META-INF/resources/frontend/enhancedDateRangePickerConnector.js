@@ -67,7 +67,7 @@ window.Vaadin.Flow.enhancedDateRangePickerConnector = {
                 inputValue = datepicker._inputStartValue;
             } catch (err) {
                 /* component not ready: falling back to stored value */
-                inputStartValue = datepicker.value || '';
+                inputValue = datepicker.value || '';
             }
             return inputValue;
         };
@@ -77,7 +77,7 @@ window.Vaadin.Flow.enhancedDateRangePickerConnector = {
                 inputValue = datepicker._inputEndValue;
             } catch (err) {
                 /* component not ready: falling back to stored value */
-                inputEndValue = datepicker.value || '';
+                inputValue = datepicker.value || '';
             }
             return inputValue;
         };
