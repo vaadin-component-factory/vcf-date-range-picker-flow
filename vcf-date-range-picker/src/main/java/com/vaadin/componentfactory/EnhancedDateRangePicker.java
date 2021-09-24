@@ -1226,4 +1226,17 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
             this.getElement().executeJs("this.removePreselectionById($0)", id);
         }
     }
+
+    @Override
+    public void setValue(DateRange value) {
+      if(value == null) {
+        getElement().executeJs("this.value = 'null;null';");
+      }
+      super.setValue(value);
+    }
+
+    @Override
+    public DateRange getEmptyValue() {
+      return null;
+    }
 }
