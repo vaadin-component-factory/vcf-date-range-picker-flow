@@ -55,8 +55,8 @@ import elemental.json.JsonObject;
  * {@link DatePickerI18n} object.
  *
  */
-@JavaScript("frontend://date-fns-limited.min.js")
-@JavaScript("frontend://enhancedDateRangePickerConnector.js")
+@JavaScript("./date-fns-limited.min.js")
+@JavaScript("./enhancedDateRangePickerConnector.js")
 @Tag("vcf-date-range-picker")
 @NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "^4.8.10")
 @JsModule("@vaadin-component-factory/vcf-date-range-picker/vcf-date-range-picker.js")
@@ -131,7 +131,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @see #setValue(Object)
      */
     public EnhancedDateRangePicker(DateRange initialDate) {
-        super(initialDate, new DateRange(null,null), String.class, PARSER, FORMATTER);
+        super(initialDate, new DateRange(null,null), String.class, PARSER, FORMATTER, true);
         this.setPattern("yyyy-MM-dd");
         this.setParsers("yyyy-MM-dd");
 

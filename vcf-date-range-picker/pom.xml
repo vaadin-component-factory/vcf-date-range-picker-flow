@@ -10,7 +10,7 @@
 
     <name>Date Range Picker</name>
 
-    <version>1.10.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <inceptionYear>2021</inceptionYear>
     <organization>
         <name>Vaadin Ltd</name>
@@ -18,9 +18,8 @@
     </organization>
 
     <properties>
-        <osgi.version>6.0.0</osgi.version>
-        <vaadin.version>14.5.5</vaadin.version>
-        <flow.version>2.5.4</flow.version>
+        <vaadin.version>21.0.3</vaadin.version>
+        <flow.version>8.0.3</flow.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -41,26 +40,6 @@
          <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>flow-osgi</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.cmpn</artifactId>
-            <version>${osgi.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.core</artifactId>
-            <version>${osgi.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -86,6 +65,12 @@
             <version>1.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
     </dependencies>
 
     <build>
