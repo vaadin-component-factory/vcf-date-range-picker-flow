@@ -98,6 +98,8 @@ window.Vaadin.Flow.enhancedDateRangePickerConnector = {
             return cleanString(rawDate.toLocaleDateString(locale));
         };
 
+        let cachedObject;
+
         const parseDateBasedOnParsers = function (dateString, parsersCopy, language) {
             var date;
             var i;
@@ -110,11 +112,15 @@ window.Vaadin.Flow.enhancedDateRangePickerConnector = {
                 } catch (err) {}
             }
 
-            return {
-                day: date.getDate(),
-                month: date.getMonth(),
-                year: date.getFullYear(),
-            };
+            if (date != 'Invalid Date') {
+                cachedObject = {
+                    day: date.getDate(),
+                    month: date.getMonth(),
+                    year: date.getFullYear(),
+                }
+            }
+
+            return cachedObject;
         };
 
         const parseDateBasedOnLocale = function (dateString) {
