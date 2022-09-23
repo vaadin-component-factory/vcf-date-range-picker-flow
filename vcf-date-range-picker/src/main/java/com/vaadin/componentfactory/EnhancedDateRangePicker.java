@@ -37,6 +37,7 @@ import com.vaadin.flow.component.datepicker.GeneratedVaadinDatePicker;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
+import com.vaadin.flow.component.shared.HasClearButton;
 import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.internal.JsonSerializer;
@@ -61,7 +62,7 @@ import elemental.json.JsonObject;
 @NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "4.9.2")
 @JsModule("@vaadin-component-factory/vcf-date-range-picker/vcf-date-range-picker.js")
 public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedDateRangePicker, DateRange>
-        implements HasSize, HasValidation, HasComponents {
+        implements HasSize, HasValidation, HasComponents, HasClearButton {
 
 	private static final String PROP_AUTO_OPEN_DISABLED = "autoOpenDisabled";
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -564,33 +565,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
         boolean endDateBeforeStartDate = value != null && value.getStartDate() != null && value.getEndDate() != null && value.getEndDate().isBefore(value.getStartDate());
         return startDateInvalid || endDateInvalid || endDateBeforeStartDate;
     }    
-
-    /**
-     * Sets displaying a clear button in the datepicker when it has value.
-     * <p>
-     * The clear button is an icon, which can be clicked to set the datepicker
-     * value to {@code null}.
-     *
-     * @param clearButtonVisible
-     *            {@code true} to display the clear button, {@code false} to
-     *            hide it
-     */
-    @Override
-    public void setClearButtonVisible(boolean clearButtonVisible) {
-        super.setClearButtonVisible(clearButtonVisible);
-    }
-
-    /**
-     * Gets whether this datepicker displays a clear button when it has value.
-     *
-     * @return {@code true} if this datepicker displays a clear button,
-     *         {@code false} otherwise
-     * @see #setClearButtonVisible(boolean)
-     */
-    public boolean isClearButtonVisible() {
-        return super.isClearButtonVisibleBoolean();
-    }
-
+    
     /**
      * Sets displaying a clear button in the datepicker when it has value.
      * <p>
