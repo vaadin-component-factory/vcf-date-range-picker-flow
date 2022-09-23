@@ -6,9 +6,14 @@ On top of basic functionality of DatePicker, it has ability to select date range
 As in EnhancedDatePicker, formatting is done by JavaScript library [date-fns v2.0.0-beta.2](https://date-fns.org/v2.0.0-beta.2/docs/Getting-Started). More information about supported formatting paterns can be found here:
  https://date-fns.org/v2.0.0-beta.2/docs/format
  
-
-
 This component is part of Vaadin Component Factory
+
+#Compatibility
+
+- Version 1.x.x supports Vaadin 14+
+- Version 2.x.x supports Vaadin 21+
+- Version 3.x.x supports Vaadin 23.0.x
+- Version 4.x.x supports Vaadin 23.1 & 23.2
 
 ## Running the component demo
 Run from the command line:
