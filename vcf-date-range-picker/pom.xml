@@ -18,8 +18,8 @@
     </organization>
 
     <properties>
-        <vaadin.version>23.0.7</vaadin.version>
-        <flow.version>23.0.5</flow.version>
+        <vaadin.version>23.1.10</vaadin.version>
+        <flow.version>23.1.8</flow.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
