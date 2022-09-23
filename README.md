@@ -8,7 +8,7 @@ As in EnhancedDatePicker, formatting is done by JavaScript library [date-fns v2.
  
 This component is part of Vaadin Component Factory
 
-#Compatibility
+## Compatibility
 
 - Version 1.x.x supports Vaadin 14+
 - Version 2.x.x supports Vaadin 21+
