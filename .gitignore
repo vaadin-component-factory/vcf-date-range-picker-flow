@@ -17,3 +17,5 @@ webpack.config.js
 node_modules/
 .vscode
 webpack.generated.js
+vcf-date-range-picker-demo/tsconfig.json
+vcf-date-range-picker-demo/types.d.ts
