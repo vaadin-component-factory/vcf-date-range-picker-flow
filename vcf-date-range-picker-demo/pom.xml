@@ -9,7 +9,7 @@
     <packaging>war</packaging>
     <name>Date Range Picker Demo</name>
 
-    <version>1.10.1</version>
+    <version>1.10.2-SNAPSHOT</version>
     <inceptionYear>2021</inceptionYear>
     <organization>
         <name>Vaadin Ltd</name>
