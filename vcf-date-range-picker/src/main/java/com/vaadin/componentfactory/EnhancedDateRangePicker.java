@@ -15,25 +15,18 @@
  */
 package com.vaadin.componentfactory;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
+import com.vaadin.flow.component.AbstractSinglePropertyField;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.HasLabel;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasValidation;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.datepicker.GeneratedVaadinDatePicker;
 import com.vaadin.flow.component.dependency.JavaScript;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
@@ -42,10 +35,16 @@ import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.internal.JsonSerializer;
 import com.vaadin.flow.shared.Registration;
-
-import org.jsoup.internal.StringUtil;
-
 import elemental.json.JsonObject;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import org.jsoup.internal.StringUtil;
 
 /**
  * Server-side component that encapsulates the functionality of the
@@ -59,10 +58,10 @@ import elemental.json.JsonObject;
 @JavaScript("./date-fns-limited.min.js")
 @JavaScript("./enhancedDateRangePickerConnector.js")
 @Tag("vcf-date-range-picker")
-@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "4.9.3")
+@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "5.0.0")
 @JsModule("@vaadin-component-factory/vcf-date-range-picker/vcf-date-range-picker.js")
-public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedDateRangePicker, DateRange>
-        implements HasSize, HasValidation, HasComponents, HasClearButton {
+public class EnhancedDateRangePicker extends  AbstractSinglePropertyField<EnhancedDateRangePicker, DateRange>
+        implements HasSize, HasValidation, HasComponents, HasClearButton, HasLabel {
 
 	private static final String PROP_AUTO_OPEN_DISABLED = "autoOpenDisabled";
     private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -132,9 +131,15 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @see #setValue(Object)
      */
     public EnhancedDateRangePicker(DateRange initialDate) {
-        super(initialDate, new DateRange(null,null), String.class, PARSER, FORMATTER, true);
+        super("value", initialDate, String.class, PARSER, FORMATTER);
         this.setPattern("yyyy-MM-dd");
         this.setParsers("yyyy-MM-dd");
+        
+        // Initialize property value unless it has already been set from a
+        // template
+        if (getElement().getProperty("value") == null) {
+            setPresentationValue(initialDate);
+        }
 
         // workaround for https://github.com/vaadin/flow/issues/3496
         setInvalid(false);
@@ -307,7 +312,8 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *            <code>null</code> to remove any minimum constraints
      */
     public void setMin(LocalDate min) {
-        setMinAsString(DATE_FORMATTER.apply(min));
+        String minAsString = DATE_FORMATTER.apply(min);
+        getElement().setProperty("min", minAsString == null ? "" : minAsString);
         this.min = min;
     }
 
@@ -319,7 +325,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *         <code>null</code> if there's no minimum
      */
     public LocalDate getMin() {
-        return DATE_PARSER.apply(getMinAsStringString());
+        return DATE_PARSER.apply(getElement().getProperty("min"));
     }
 
     /**
@@ -331,7 +337,8 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *            <code>null</code> to remove any maximum constraints
      */
     public void setMax(LocalDate max) {
-        setMaxAsString(DATE_FORMATTER.apply(max));
+        String maxAsString = DATE_FORMATTER.apply(max);
+        getElement().setProperty("max", maxAsString == null ? "" : maxAsString);
         this.max = max;
     }
 
@@ -343,7 +350,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *         <code>null</code> if there's no maximum
      */
     public LocalDate getMax() {
-        return DATE_PARSER.apply(getMaxAsStringString());
+        return DATE_PARSER.apply(getElement().getProperty("max"));
     }
 
 
@@ -513,13 +520,9 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
                 .beforeClientResponse(this, context -> command.accept(ui)));
     }
 
-    @Override
     public void setErrorMessage(String errorMessage) {
-        if (errorMessage == null) {
-            super.setErrorMessage("");
-        } else {
-            super.setErrorMessage(errorMessage);
-        }
+        getElement().setProperty("errorMessage",
+              errorMessage == null ? "" : errorMessage);
     }
 
     /**
@@ -527,14 +530,12 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *
      * @return the current error message
      */
-    @Override
     public String getErrorMessage() {
-        return getErrorMessageString();
+        return getElement().getProperty("errorMessage");
     }
 
-    @Override
     public void setInvalid(boolean invalid) {
-        super.setInvalid(invalid);
+        getElement().setProperty("invalid", invalid);
     }
 
     /**
@@ -544,9 +545,8 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *
      * @return the {@code validity} property from the datepicker
      */
-    @Override
     public boolean isInvalid() {
-        return isInvalidBoolean();
+        return getElement().getProperty("invalid", false);
     }
 
     /**
@@ -615,10 +615,9 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     public boolean isSidePanelVisible() {
         return !getElement().getProperty("hideSidePanel", false);
     }
-
-    @Override
+    
     public void setLabel(String label) {
-        super.setLabel(label);
+        getElement().setProperty("label", label == null ? "" : label);
     }
 
     /**
@@ -627,12 +626,12 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @return the {@code label} property of the datePicker
      */
     public String getLabel() {
-        return getLabelString();
+        return getElement().getProperty("label");
     }
 
-    @Override
     public void setPlaceholder(String placeholder) {
-        super.setPlaceholder(placeholder);
+        getElement().setProperty("placeholder",
+          placeholder == null ? "" : placeholder);
     }
 
     protected void setEndPlaceholder(String endPlaceholder) {
@@ -650,7 +649,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @return the {@code placeholder} property of the datePicker
      */
     public String getPlaceholder() {
-        return getPlaceholderString();
+        return getElement().getProperty("placeholder");
     }
 
     /**
@@ -676,7 +675,9 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *            the LocalDate value to set
      */
     public void setInitialPosition(LocalDate initialPosition) {
-        setInitialPosition(DATE_FORMATTER.apply(initialPosition));
+        String initialPositionString = DATE_FORMATTER.apply(initialPosition);
+        getElement().setProperty("initialPosition",
+                initialPositionString == null ? "" : initialPositionString);
     }
 
     /**
@@ -691,12 +692,11 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @return the {@code initialPosition} property from the datepicker
      */
     public LocalDate getInitialPosition() {
-        return DATE_PARSER.apply(getInitialPositionString());
+        return DATE_PARSER.apply(getElement().getProperty("initialPosition"));
     }
 
-    @Override
     public void setRequired(boolean required) {
-        super.setRequired(required);
+        getElement().setProperty("required", required);
         this.required = required;
     }
 
@@ -715,7 +715,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @return {@code true} if the input is required, {@code false} otherwise
      */
     public boolean isRequired() {
-        return isRequiredBoolean();
+        return getElement().getProperty("required", false);
     }
 
     /**
@@ -730,7 +730,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *            the boolean value to set
      */
     public void setWeekNumbersVisible(boolean weekNumbersVisible) {
-        super.setShowWeekNumbers(weekNumbersVisible);
+        getElement().setProperty("showWeekNumbers", weekNumbersVisible);
     }
 
     /**
@@ -743,7 +743,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @return the {@code showWeekNumbers} property from the datepicker
      */
     public boolean isWeekNumbersVisible() {
-        return isShowWeekNumbersBoolean();
+        return getElement().getProperty("showWeekNumbers", false);
     }
 
     /**
@@ -753,17 +753,15 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      *            {@code true} to open the datepicker overlay, {@code false} to
      *            close it
      */
-    @Override
-    public void setOpened(boolean opened) {
-        super.setOpened(opened);
+    void setOpened(boolean opened) {
+        getElement().setProperty("opened", opened);
     }
 
     /**
      * Opens the datepicker overlay.
      */
-    @Override
     public void open() {
-        super.setOpened(true);
+        setOpened(true);
     }
 
     /**
@@ -776,9 +774,8 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     /**
      * Closes the datepicker overlay.
      */
-    @Override
     protected void close() {
-        super.setOpened(false);
+        setOpened(false);
     }
 
     /**
@@ -787,7 +784,7 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @return {@code true} if the drop-down is opened, {@code false} otherwise
      */
     public boolean isOpened() {
-        return isOpenedBoolean();
+        return getElement().getProperty("opened", false);
     }
 
     /**
@@ -807,11 +804,9 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     public boolean isAutoOpen() {
         return !getElement().getProperty(PROP_AUTO_OPEN_DISABLED,false);
     }
-
-    
-    @Override
+ 
     public void setName(String name) {
-        super.setName(name);
+        getElement().setProperty("name", name == null ? "" : name);   
     }
 
     /**
@@ -822,7 +817,6 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
     protected void validate() {
         setInvalid(isInvalid(getValue()));
     }
-
     
     /**
      * Gets the name of the EnhancedDatePicker.
@@ -830,19 +824,66 @@ public class EnhancedDateRangePicker extends GeneratedVaadinDatePicker<EnhancedD
      * @return the {@code name} property from the EnhancedDatePicker
      */
     public String getName() {
-        return getNameString();
+        return getElement().getProperty("name");
     }
 
-    @Override
+    /**
+     * {@code opened-changed} event is sent when the overlay opened state
+     * changes.
+     */
+    public static class OpenedChangeEvent extends ComponentEvent<EnhancedDateRangePicker> {
+        private final boolean opened;
+        
+        public OpenedChangeEvent(EnhancedDateRangePicker source, boolean fromClient) {
+          super(source, fromClient);
+          this.opened = source.isOpened();
+        }
+  
+        public boolean isOpened() {
+            return opened;
+        }
+    }
+    
+    /**
+     * Adds a listener for {@code opened-changed} events fired by the
+     * webcomponent.
+     *
+     * @param listener
+     *            the listener
+     * @return a {@link Registration} for removing the event listener
+     */
     public Registration addOpenedChangeListener(
-            ComponentEventListener<OpenedChangeEvent<EnhancedDateRangePicker>> listener) {
-        return super.addOpenedChangeListener(listener);
+            ComponentEventListener<OpenedChangeEvent> listener) {
+        return addListener(OpenedChangeEvent.class, listener);
     }
 
-    @Override
+    /**
+     * {@code invalid-changed} event is sent when the invalid state changes.
+     */
+    public static class InvalidChangeEvent extends ComponentEvent<EnhancedDateRangePicker> {
+        private final boolean invalid;
+
+        public InvalidChangeEvent(EnhancedDateRangePicker source, boolean fromClient) {
+            super(source, fromClient);
+            this.invalid = source.isInvalid();
+        }
+
+        public boolean isInvalid() {
+            return invalid;
+        }
+    }
+
+    /**
+     * Adds a listener for {@code invalid-changed} events fired by the
+     * webcomponent.
+     *
+     * @param listener
+     *            the listener
+     * @return a {@link Registration} for removing the event listener
+     */
     public Registration addInvalidChangeListener(
-            ComponentEventListener<InvalidChangeEvent<EnhancedDateRangePicker>> listener) {
-        return super.addInvalidChangeListener(listener);
+            ComponentEventListener<InvalidChangeEvent> listener) {
+        return addListener(InvalidChangeEvent.class, listener);
     }
 
     /**

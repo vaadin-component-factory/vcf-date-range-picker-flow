@@ -10,7 +10,7 @@
 
     <name>Date Range Picker</name>
 
-    <version>4.0.2-SNAPSHOT</version>
+    <version>5.0.0</version>
     <inceptionYear>2021</inceptionYear>
     <organization>
         <name>Vaadin Ltd</name>
@@ -18,10 +18,10 @@
     </organization>
 
     <properties>
-        <vaadin.version>23.1.10</vaadin.version>
-        <flow.version>23.1.8</flow.version>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <vaadin.version>24.2.0</vaadin.version>
+        <flow.version>24.2.0</flow.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
     <dependencyManagement>
@@ -49,11 +49,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-date-picker-flow</artifactId>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
@@ -66,11 +61,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>javax.servlet-api</artifactId>
-		    <version>3.0.1</version>
-		    <scope>provided</scope>
-		</dependency>
+	        <groupId>jakarta.servlet</groupId>
+	        <artifactId>jakarta.servlet-api</artifactId>
+	        <version>6.0.0</version>
+	        <scope>provided</scope>
+    	</dependency>
     </dependencies>
 
     <build>

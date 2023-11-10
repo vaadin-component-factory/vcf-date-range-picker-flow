@@ -26,8 +26,8 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.html.NativeButton;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.demo.DemoView;
@@ -55,14 +55,14 @@ public class EnhancedDateRangePickerView extends DemoView {
         createLocaleChangeDatePicker();
 
         addCard("Additional code used in the demo",
-                new Label("These methods are used in the demo."));
+                new Span("These methods are used in the demo."));
     }
 
     private void createSimpleDatePicker() {
         Div message = createMessageDiv("simple-picker-message");
 
         // begin-source-example
-        // source-example-heading: Simple date picker
+        // source-example-heading: Simple date range picker
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setClassNameForDates("publicHolidayRed", LocalDate.now(), LocalDate.now().plusDays(10));
         datePicker.setClassNameForDates("publicHolidayGreen", LocalDate.now().plusDays(1), LocalDate.now().plusDays(11));
@@ -81,7 +81,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         Div message = createMessageDiv("simple-picker-without-text-fields-message");
 
         // begin-source-example
-        // source-example-heading: Simple date picker
+        // source-example-heading: Simple date range picker without visible text fields
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setTextFieldsVisible(false);
         Button openDRP = new Button("Open Date Range Picker");
@@ -102,7 +102,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         Div message = createMessageDiv("simple-picker-message");
 
         // begin-source-example
-        // source-example-heading: Date picker with pattern
+        // source-example-heading: Date range picker with pattern
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),LocalDate.now().plusDays(7)), "dd-MMM-yyyy");
         datePicker.setId("withCustomJSPreset");
         Button from1st = new Button("From 1st");
@@ -158,7 +158,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         Div message = createMessageDiv("simple-picker-message");
 
         // begin-source-example
-        // source-example-heading: Date picker with pattern and locale
+        // source-example-heading: Date range picker with pattern and locale
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),null), "dd-MMM-yyyy");
 //        UI.getCurrent().setLocale(Locale.ITALIAN);
         updateMessage(message, datePicker);
@@ -216,7 +216,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         Div message = createMessageDiv("min-and-max-picker-message");
 
         // begin-source-example
-        // source-example-heading: Date picker with min and max
+        // source-example-heading: Date range picker with min and max without side panel
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setLabel("Select a day within this month");
         datePicker.setPlaceholder("Date within this month");
@@ -239,7 +239,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         Div message = createMessageDiv("disabled-picker-message");
 
         // begin-source-example
-        // source-example-heading: Disabled date picker
+        // source-example-heading: Disabled date range picker
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setEnabled(false);
         // end-source-example
@@ -269,7 +269,7 @@ public class EnhancedDateRangePickerView extends DemoView {
         Div message = createMessageDiv("finnish-picker-message");
 
         // begin-source-example
-        // source-example-heading: Internationalized date picker
+        // source-example-heading: Internationalized date range picker
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setLabel("Finnish date picker");
         datePicker.setPlaceholder("Syntymäpäivä");
@@ -319,7 +319,7 @@ public class EnhancedDateRangePickerView extends DemoView {
     private void createLocaleChangeDatePicker() {
         Div message = createMessageDiv("Customize-locale-picker-message");
         // begin-source-example
-        // source-example-heading: Date picker with customize locales
+        // source-example-heading: Date range picker with customize locales
         // By default, the datePicker uses the current UI locale
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         NativeButton locale1 = new NativeButton("Locale: US");

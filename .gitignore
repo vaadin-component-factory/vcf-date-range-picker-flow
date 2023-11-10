@@ -19,6 +19,8 @@ node_modules/
 webpack.generated.js
 vcf-date-range-picker-demo/frontend/generated
 vcf-date-range-picker-demo/frontend/index.html
+vcf-date-range-picker-demo/src/main/dev-bundle
 tsconfig.json
 types.d.ts
 vite.config.ts
+
