@@ -14,6 +14,7 @@ This component is part of Vaadin Component Factory
 - Version 2.x.x supports Vaadin 21+
 - Version 3.x.x supports Vaadin 23.0.x
 - Version 4.x.x supports Vaadin 23.1 & 23.2
+- Version 5.x.x supports Vaadin 24
 
 ## Running the component demo
 Run from the command line:
@@ -41,4 +42,9 @@ Documentation for flow can be found in [Flow documentation](https://github.com/v
 
 ## License
 
-Apache Licence 2
+This Add-on is distributed under [Apache Licence 2.0](https://github.com/vaadin-component-factory/vcf-date-range-picker-flow/blob/main/LICENSE).
+
+Enhanced Date Range Picker component for Vaadin Flow is written by Vaadin Ltd.
+
+### Sponsored development
+Major pieces of development of this add-on has been sponsored by multiple customers of Vaadin. Read more about Expert on Demand at: [Support](https://vaadin.com/support) and [Pricing](https://vaadin.com/pricing).
