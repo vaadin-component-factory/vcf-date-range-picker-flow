@@ -58,7 +58,7 @@ import org.jsoup.internal.StringUtil;
 @JavaScript("./date-fns-limited.min.js")
 @JavaScript("./enhancedDateRangePickerConnector.js")
 @Tag("vcf-date-range-picker")
-@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "5.0.1")
+@NpmPackage(value = "@vaadin-component-factory/vcf-date-range-picker", version = "5.0.2")
 @JsModule("@vaadin-component-factory/vcf-date-range-picker/vcf-date-range-picker.js")
 public class EnhancedDateRangePicker extends  AbstractSinglePropertyField<EnhancedDateRangePicker, DateRange>
         implements HasSize, HasValidation, HasComponents, HasClearButton, HasLabel {
