@@ -17,10 +17,11 @@ webpack.config.js
 node_modules/
 .vscode
 webpack.generated.js
-vcf-date-range-picker-demo/frontend/generated
-vcf-date-range-picker-demo/frontend/index.html
-vcf-date-range-picker-demo/src/main/dev-bundle
-tsconfig.json
-types.d.ts
-vite.config.ts
+vcf-date-time-range-picker-demo/frontend/generated
+vcf-date-time-range-picker-demo/frontend/index.html
+vcf-date-time-range-picker-demo/src/main/bundles
+vcf-date-time-range-picker-demo/tsconfig.json
+vcf-date-time-range-picker-demo/types.d.ts
+vcf-date-time-range-picker-demo/vite.config.ts
+vcf-date-time-range-picker-demo/vite.generated.ts
 

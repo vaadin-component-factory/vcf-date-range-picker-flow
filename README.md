@@ -1,30 +1,22 @@
-# EnhancedDateRangePicker component for Vaadin Flow
+# Date Time Range Picker component for Vaadin Flow
 
-This project is based on [DatePicker component for Vaadin Flow](https://github.com/vaadin/vaadin-date-picker-flow) and also in [EnhancedDatePicker](https://github.com/vaadin-component-factory/enhanced-date-picker).
+This project is based on [EnhancedDateRangePicker component for Vaadin Flow](https://github.com/vaadin-component-factory/vcf-date-range-picker-flow).
 
-On top of basic functionality of DatePicker, it has ability to select date ranges using only one scrollable calendar.
-As in EnhancedDatePicker, formatting is done by JavaScript library [date-fns v2.0.0-beta.2](https://date-fns.org/v2.0.0-beta.2/docs/Getting-Started). More information about supported formatting paterns can be found here:
- https://date-fns.org/v2.0.0-beta.2/docs/format
+It provides the possibiity to to select date-time ranges using only one scrollable calendar. The implementation relies on the web-component [`<vcf-date-time-range-picker>`](https://github.com/vaadin-component-factory/vcf-date-time-range-picker).
  
-This component is part of Vaadin Component Factory
+This component is part of Vaadin Component Factory.
 
-## Compatibility
+## Setting up for development:
+Clone the project in GitHub (or fork it if you plan on contributing)
+```
+https://github.com/vaadin-component-factory/vcf-date-time-range-picker-flow
+```
+To build and install the project into the local repository run 
+`mvn clean install -DskipTests`
 
-- Version 1.x.x supports Vaadin 14+
-- Version 2.x.x supports Vaadin 21+
-- Version 3.x.x supports Vaadin 23.0.x
-- Version 4.x.x supports Vaadin 23.1 & 23.2
-- Version 5.x.x supports Vaadin 24
-
-## Running the component demo
-Run from the command line:
-- `mvn  -pl enhanced-date-picker-demo -Pwar install jetty:run`
-
-Then navigate to `http://localhost:8080/vcf-date-range-picker`
-
-## Installing the component
-Run from the command line:
-- `mvn clean install -DskipTests`
+## Running the demo
+To run demo go to `vcf-date-time-range-picker-demo/` subfolder and run `mvn jetty:run`.
+After server startup, you'll be able find demo at [http://localhost:8080](http://localhost:8080)
 
 ## Using the component in a Flow application
 To use the component in an application using maven,
@@ -32,19 +24,16 @@ add the following dependency to your `pom.xml`:
 ```
 <dependency>
     <groupId>com.vaadin.componentfactory</groupId>
-    <artifactId>vcf-date-range-picker</artifactId>
+    <artifactId>vcf-date-time-range-picker</artifactId>
     <version>${component.version}</version>
 </dependency>
 ```
 
-## Flow documentation
-Documentation for flow can be found in [Flow documentation](https://github.com/vaadin/flow-and-components-documentation/blob/master/documentation/Overview.asciidoc).
-
 ## License
 
-This Add-on is distributed under [Apache Licence 2.0](https://github.com/vaadin-component-factory/vcf-date-range-picker-flow/blob/main/LICENSE).
+This Add-on is distributed under [Apache Licence 2.0](https://github.com/vaadin-component-factory/vcf-date-time-range-picker-flow/blob/main/LICENSE).
 
-Enhanced Date Range Picker component for Vaadin Flow is written by Vaadin Ltd.
+Date Time Range Picker component for Vaadin Flow is written by Vaadin Ltd.
 
 ### Sponsored development
 Major pieces of development of this add-on has been sponsored by multiple customers of Vaadin. Read more about Expert on Demand at: [Support](https://vaadin.com/support) and [Pricing](https://vaadin.com/pricing).
