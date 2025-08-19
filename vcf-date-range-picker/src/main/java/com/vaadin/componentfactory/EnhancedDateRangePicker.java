@@ -567,50 +567,45 @@ public class EnhancedDateRangePicker extends  AbstractSinglePropertyField<Enhanc
     }    
     
     /**
-     * Sets displaying a clear button in the datepicker when it has value.
+     * Sets the visibility of the side panel in the date range picker.
      * <p>
-     * The clear button is an icon, which can be clicked to set the datepicker
-     * value to {@code null}.
+     * The side panel typically includes shortcuts or additional controls.
      *
-     * @param clearButtonVisible
-     *            {@code true} to display the clear button, {@code false} to
-     *            hide it
+     * @param sidePanelVisible {@code true} to show the side panel, {@code false} to
+     *                         hide it
      */
     public void setSidePanelVisible(boolean sidePanelVisible) {
         getElement().setProperty("hideSidePanel", !sidePanelVisible);
     }
 
     /**
-     * Gets whether this datepicker displays a clear button when it has value.
+     * Returns whether the text fields are currently visible in the date range
+     * picker.
      *
-     * @return {@code true} if this datepicker displays a clear button,
-     *         {@code false} otherwise
-     * @see #setClearButtonVisible(boolean)
+     * @return {@code true} if the text fields are visible, {@code false} otherwise
+     * @see #setTextFieldsVisible(boolean)
      */
     public boolean isTextFieldsVisible() {
         return !getElement().getProperty("hideTextFields", false);
     }
 
     /**
-     * Sets displaying a clear button in the datepicker when it has value.
+     * Sets the visibility of the text fields in the date range picker.
      * <p>
-     * The clear button is an icon, which can be clicked to set the datepicker
-     * value to {@code null}.
+     * Text fields allow manual entry of the date values.
      *
-     * @param clearButtonVisible
-     *            {@code true} to display the clear button, {@code false} to
-     *            hide it
+     * @param textFieldsVisible {@code true} to show the text fields, {@code false}
+     *                          to hide them
      */
     public void setTextFieldsVisible(boolean textFieldsVisible) {
         getElement().setProperty("hideTextFields", !textFieldsVisible);
     }
 
     /**
-     * Gets whether this datepicker displays a clear button when it has value.
+     * Returns whether the side panel is currently visible in the date range picker.
      *
-     * @return {@code true} if this datepicker displays a clear button,
-     *         {@code false} otherwise
-     * @see #setClearButtonVisible(boolean)
+     * @return {@code true} if the side panel is visible, {@code false} otherwise
+     * @see #setSidePanelVisible(boolean)
      */
     public boolean isSidePanelVisible() {
         return !getElement().getProperty("hideSidePanel", false);
