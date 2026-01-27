@@ -33,18 +33,18 @@ import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.shared.HasClearButton;
 import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.function.SerializableFunction;
-import com.vaadin.flow.internal.JsonSerializer;
 import com.vaadin.flow.shared.Registration;
-import elemental.json.JsonObject;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.jsoup.internal.StringUtil;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Server-side component that encapsulates the functionality of the
@@ -505,13 +505,15 @@ public class EnhancedDateRangePicker extends  AbstractSinglePropertyField<Enhanc
         getUI().ifPresent(ui -> setI18nWithJS());
     }
 
+    @SuppressWarnings("unchecked")
     private void setI18nWithJS() {
         runBeforeClientResponse(ui -> {
-            JsonObject i18nObject = (JsonObject) JsonSerializer.toJson(i18n);
-            for (String key : i18nObject.keys()) {
-                getElement().executeJs("this.set('i18n." + key + "', $0)",
-                        i18nObject.get(key));
-            }
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, Object> i18nMap = mapper.convertValue(i18n, Map.class);
+            i18nMap.forEach((key, value) -> {
+                getElement().executeJs("this.set('i18n." + key + "', $0)", value);
+            });
+            
         });
     }
 
