@@ -22,15 +22,17 @@ import java.util.Locale;
 import com.vaadin.componentfactory.DateRange;
 import com.vaadin.componentfactory.EnhancedDateRangePicker;
 import com.vaadin.componentfactory.EnhancedDateRangePicker.DatePickerI18n;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.NativeButton;
-import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.demo.DemoView;
 import com.vaadin.flow.router.Route;
 
 /**
@@ -40,10 +42,9 @@ import com.vaadin.flow.router.Route;
  */
 @Route("")
 @CssImport(value = "./styles/styles.css", themeFor = "vcf-date-range-month-calendar")
-public class EnhancedDateRangePickerView extends DemoView {
-
-    @Override
-    public void initView() {
+public class EnhancedDateRangePickerView extends VerticalLayout {
+    
+    public EnhancedDateRangePickerView() {      
         createPatternDatePicker();
         createPatternAndLocaleDatePicker();
         createSimpleDatePicker();
@@ -53,16 +54,11 @@ public class EnhancedDateRangePickerView extends DemoView {
         createFinnishDatePicker();
         createWithClearButton();
         createLocaleChangeDatePicker();
-
-        addCard("Additional code used in the demo",
-                new Span("These methods are used in the demo."));
     }
 
     private void createSimpleDatePicker() {
         Div message = createMessageDiv("simple-picker-message");
-
-        // begin-source-example
-        // source-example-heading: Simple date range picker
+        
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setClassNameForDates("publicHolidayRed", LocalDate.now(), LocalDate.now().plusDays(10));
         datePicker.setClassNameForDates("publicHolidayGreen", LocalDate.now().plusDays(1), LocalDate.now().plusDays(11));
@@ -70,7 +66,6 @@ public class EnhancedDateRangePickerView extends DemoView {
 
         datePicker.addValueChangeListener(
                 event -> updateMessage(message, datePicker));
-        // end-source-example
 
         datePicker.setId("simple-picker");
 
@@ -80,8 +75,6 @@ public class EnhancedDateRangePickerView extends DemoView {
     private void createSimpleDatePickerWithoutTextFields() {
         Div message = createMessageDiv("simple-picker-without-text-fields-message");
 
-        // begin-source-example
-        // source-example-heading: Simple date range picker without visible text fields
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setTextFieldsVisible(false);
         Button openDRP = new Button("Open Date Range Picker");
@@ -91,7 +84,6 @@ public class EnhancedDateRangePickerView extends DemoView {
 
         datePicker.addValueChangeListener(
                 event -> updateMessage(message, datePicker));
-        // end-source-example
 
         datePicker.setId("simple-picker");
 
@@ -101,8 +93,6 @@ public class EnhancedDateRangePickerView extends DemoView {
     private void createPatternDatePicker() {
         Div message = createMessageDiv("simple-picker-message");
 
-        // begin-source-example
-        // source-example-heading: Date range picker with pattern
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),LocalDate.now().plusDays(7)), "dd-MMM-yyyy");
         datePicker.setId("withCustomJSPreset");
         Button from1st = new Button("From 1st");
@@ -147,18 +137,17 @@ public class EnhancedDateRangePickerView extends DemoView {
             updateMessage(message, datePicker);
         });
 
-        // end-source-example
-
         datePicker.setId("Pattern-picker");
-
-        addCard("Date range picker with pattern", datePicker, message, patten, setPatternBtn, dropPatternBtn);
-    }
+        
+        VerticalLayout patternLayout = new VerticalLayout(patten, setPatternBtn, dropPatternBtn);
+        patternLayout.setPadding(false);
+        
+        addCard("Date range picker with pattern", datePicker, message, patternLayout);
+      }
 
     private void createPatternAndLocaleDatePicker() {
         Div message = createMessageDiv("simple-picker-message");
 
-        // begin-source-example
-        // source-example-heading: Date range picker with pattern and locale
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker(new DateRange(LocalDate.now(),null), "dd-MMM-yyyy");
 //        UI.getCurrent().setLocale(Locale.ITALIAN);
         updateMessage(message, datePicker);
@@ -184,7 +173,6 @@ public class EnhancedDateRangePickerView extends DemoView {
         HorizontalLayout patterns = new HorizontalLayout();
         patterns.add(setPatternBtn, dropPatternBtn);
 
-
         Button setlocaleBtn = new Button("Set locale to German");
         setlocaleBtn.addClickListener(e -> {
             datePicker.setLocale(Locale.GERMAN);
@@ -205,7 +193,6 @@ public class EnhancedDateRangePickerView extends DemoView {
 
         HorizontalLayout locales = new HorizontalLayout();
         locales.add(setlocaleBtn, setlocaleEsBtn, setLocaleEnBtn);
-        // end-source-example
 
         datePicker.setId("Pattern-picker");
 
@@ -215,8 +202,6 @@ public class EnhancedDateRangePickerView extends DemoView {
     private void createMinAndMaxDatePicker() {
         Div message = createMessageDiv("min-and-max-picker-message");
 
-        // begin-source-example
-        // source-example-heading: Date range picker with min and max without side panel
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setLabel("Select a day within this month");
         datePicker.setPlaceholder("Date within this month");
@@ -229,38 +214,33 @@ public class EnhancedDateRangePickerView extends DemoView {
 
         datePicker.addValueChangeListener(
                 event -> updateMessage(message, datePicker));
-        // end-source-example
 
         datePicker.setId("min-and-max-picker");
+        
         addCard("Date range picker with min and max without side panel", datePicker, message);
     }
 
     private void createDisabledDatePicker() {
         Div message = createMessageDiv("disabled-picker-message");
 
-        // begin-source-example
-        // source-example-heading: Disabled date range picker
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setEnabled(false);
-        // end-source-example
 
         datePicker.addValueChangeListener(event -> {
             message.setText("This event should not have happened");
         });
 
         datePicker.setId("disabled-picker");
+        
         addCard("Disabled date range picker", datePicker, message);
     }
 
     private void createWithClearButton() {
-        // begin-source-example
-        // source-example-heading: Clear button
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setValue(new DateRange(LocalDate.now(),null));
 
         // Display an icon which can be clicked to clear the value:
         datePicker.setClearButtonVisible(true);
-        // end-source-example
 
         addCard("Clear button", datePicker);
     }
@@ -268,8 +248,6 @@ public class EnhancedDateRangePickerView extends DemoView {
     private void createFinnishDatePicker() {
         Div message = createMessageDiv("finnish-picker-message");
 
-        // begin-source-example
-        // source-example-heading: Internationalized date range picker
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         datePicker.setLabel("Finnish date picker");
         datePicker.setPlaceholder("Syntymäpäivä");
@@ -310,16 +288,15 @@ public class EnhancedDateRangePickerView extends DemoView {
                 message.setText("No date is selected");
             }
         });
-        // end-source-example
 
         datePicker.setId("finnish-picker");
+        
         addCard("Internationalized date range picker", datePicker, message);
     }
 
     private void createLocaleChangeDatePicker() {
         Div message = createMessageDiv("Customize-locale-picker-message");
-        // begin-source-example
-        // source-example-heading: Date range picker with customize locales
+      
         // By default, the datePicker uses the current UI locale
         EnhancedDateRangePicker datePicker = new EnhancedDateRangePicker();
         NativeButton locale1 = new NativeButton("Locale: US");
@@ -341,16 +318,17 @@ public class EnhancedDateRangePickerView extends DemoView {
 
         datePicker.addValueChangeListener(
                 event -> updateMessage(message, datePicker));
-        // end-source-example
+        
         locale1.setId("Locale-US");
         locale2.setId("Locale-UK");
         datePicker.setId("locale-change-picker");
-        addCard("Date range picker with customize locales", datePicker, locale1,
-                locale2, locale3, message);
+        
+        VerticalLayout localeLayout = new VerticalLayout(locale1,
+            locale2, locale3);
+        
+        addCard("Date range picker with customize locales", datePicker, localeLayout, message);
     }
-    
-    // begin-source-example
-    // source-example-heading: Additional code used in the demo
+ 
     /**
      * Additional code used in the demo
      */
@@ -382,5 +360,18 @@ public class EnhancedDateRangePickerView extends DemoView {
         message.getStyle().set("whiteSpace", "pre");
         return message;
     }
-    // end-source-example
+    
+    private void addCard(String title, Component... content) {
+      H2 cardTitle = new H2(title);
+
+      Div card = new Div();
+      card.getStyle().setMargin("10px 30px");
+      card.getStyle().setMaxWidth("1000px");
+
+      card.add(cardTitle);
+      card.add(new Hr());
+      card.add(content);
+
+      add(card);
+    }
 }

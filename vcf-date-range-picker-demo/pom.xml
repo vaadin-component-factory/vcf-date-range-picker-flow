@@ -49,14 +49,7 @@
             <artifactId>vcf-date-range-picker</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
-        <!-- demo specific -->
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>flow-component-demo-helpers</artifactId>
-            <version>9.0.12</version>
-        </dependency>
-
+       
         <!-- externals -->
         <dependency>
             <groupId>org.slf4j</groupId>
