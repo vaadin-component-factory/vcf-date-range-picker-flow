@@ -15,6 +15,7 @@ This component is part of Vaadin Component Factory
 - Version 3.x.x supports Vaadin 23.0.x
 - Version 4.x.x supports Vaadin 23.1 & 23.2
 - Version 5.x.x supports Vaadin 24
+- Version 6.x.x supports Vaadin 25
 
 ## Running the component demo
 Run from the command line:
